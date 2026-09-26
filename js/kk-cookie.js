@@ -156,7 +156,7 @@
   /* ---------- Modèle complet ---------- */
   function buildModel(key, seed, opts = {}) {
     const look = KK.LOOKS[key] || KK.LOOKS.classique;
-    if (look.pile) return buildPile(key, seed);
+    if (look.pile) return buildPile(key, seed, opts);
     const r = rng(seed);
     const shape = look.shape || 'round';
     const N = shape === 'stick' ? 96 : 72;
@@ -253,10 +253,11 @@
       bites: bitePlan(r, shape, look),
       rimW: 5.5,
       opts: opts.chunkMul ? { chunkMul: opts.chunkMul } : undefined,
+      keep: opts.keep !== false, // graine tirée au hasard (fournée de l'atelier…) : pas gardée dans le téléphone
     };
   }
 
-  function buildPile(key, seed) {
+  function buildPile(key, seed, opts = {}) {
     const r = rng(seed);
     const flavors = ['classique', 'triple', 'marbre', 'classique', 'triple'];
     const layout = [[-56, 34], [2, 48], [58, 30], [-28, -20], [30, -28]];
@@ -265,7 +266,7 @@
       dx: dx + r.range(-4, 4), dy: dy + r.range(-4, 4), s: 0.47, rot: r.range(0, 360),
       look: flavors[(i + shift) % flavors.length], seed: (seed + (i + 1) * 7919) >>> 0,
     }));
-    return { key, seed, pile: items, total: items.length, chunks: [], tops: [] };
+    return { key, seed, pile: items, total: items.length, chunks: [], tops: [], keep: opts.keep !== false };
   }
 
   KK.cookieModel = buildModel;
@@ -670,7 +671,7 @@
       class: 'kk-cookie-svg', 'aria-hidden': 'true', focusable: 'false',
     }, el);
     const o = Object.assign({ res: KK.texRes((el.clientWidth || 140) * (look.shape === 'stick' ? 1.3 : 1)) }, opts);
-    const model = buildModel(key, seed);
+    const model = buildModel(key, seed, { keep: opts.keep });
     let view;
     if (model.pile) {
       view = new PileView(svgEl, model, o);

@@ -58,6 +58,8 @@
   }
 
   const use3D = () => !!(KK.gl3d && KK.gl3d.ok());
+  // la graine d'origine du produit : sa texture est gardée dans le téléphone (pas celles des réassorts)
+  const keepOf = (p) => p.seed === KK.hash(p.id + ':kookies');
   const floorFor = (look) => (look === 'stick' ? 98 : look === 'mini' ? 110 : 122);
 
   /* Sélectionner, c'est croquer : première bouchée dans la vitrine, puis la fiche */
@@ -170,8 +172,8 @@
     if (S.view) S.view.destroy();
     holder.textContent = '';
     S.view = use3D()
-      ? KK.gl3d.mount(holder, p.look, p.seed, { pri: 10, res: 512, free: true, el: 0.8, onEmpty: () => regenerate(token), onTap: () => biteSheet() })
-      : KK.mountCookie(holder, p.look, p.seed, { floor: floorFor(p.look), onEmpty: () => regenerate(token), pri: 10, res: KK.texRes(Math.min(window.innerWidth * 0.66, 260) * (p.look === 'stick' ? 1.3 : 1)) });
+      ? KK.gl3d.mount(holder, p.look, p.seed, { pri: 10, res: 512, free: true, el: 0.8, keep: keepOf(p), onEmpty: () => regenerate(token), onTap: () => biteSheet() })
+      : KK.mountCookie(holder, p.look, p.seed, { floor: floorFor(p.look), keep: keepOf(p), onEmpty: () => regenerate(token), pri: 10, res: KK.texRes(Math.min(window.innerWidth * 0.66, 260) * (p.look === 'stick' ? 1.3 : 1)) });
     S.view.applyBites(p.bites);
     holder.setAttribute('aria-label', `Croquer : ${p.name}`);
     serial++;
@@ -215,7 +217,7 @@
       p.seed = KK.newSeed();
       p.bites = 0;
       serial++;
-      S.view.setModel(KK.cookieModel(p.look, p.seed));
+      S.view.setModel(KK.cookieModel(p.look, p.seed, { keep: false }));
       S.view.popIn().then(() => hint('Tape pour croquer'));
       setSerial();
     }, 420);
@@ -226,7 +228,7 @@
     // La vitrine se réassortit : un nouveau cookie, unique, prend la place
     p.seed = KK.newSeed();
     p.bites = 0;
-    p.view.setModel(KK.cookieModel(p.look, p.seed));
+    p.view.setModel(KK.cookieModel(p.look, p.seed, { keep: false }));
     p.view.popIn();
   }
 
@@ -523,7 +525,7 @@
         <p>${loyal ? `+${order.stamps} tampon${order.stamps > 1 ? 's' : ''} sur ta carte fidélité.` : `<a href="#fidelite" data-close-go>Crée ta carte fidélité</a> pour cumuler tes tampons.`}</p>
       </div>`;
     const first = order.items[0];
-    const view = KK.mountCookie($('.success-cookie', body), first ? first.look : 'classique', KK.newSeed(), { fx: false, words: false });
+    const view = KK.mountCookie($('.success-cookie', body), first ? first.look : 'classique', KK.newSeed(), { fx: false, words: false, keep: false });
     if (fresh) view.popIn();
     foot.hidden = false;
     foot.innerHTML = `

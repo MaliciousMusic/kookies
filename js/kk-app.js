@@ -409,10 +409,28 @@
       later(SPLASH_CHORD + 1.75, finish);
     }
 
-    // pas de bouton : l'animation part tout de suite ; la mélodie aussi, si le navigateur laisse
-    // jouer du son sans geste (appli installée sur Android, ordinateur…), sinon elle reste muette
-    el.addEventListener('click', finish);
-    KK.sfx.autoplay().then(run);
+    // avec le son, il faut d'abord un geste (les navigateurs l'exigent) : « Entrer » lance les lettres et la mélodie
+    if (KK.sfx.on && KK.sfx.supported) {
+      el.removeAttribute('aria-hidden');
+      const gate = document.createElement('button');
+      gate.type = 'button';
+      gate.className = 'splash-go';
+      gate.dataset.sfx = 'none';
+      gate.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-sound"/></svg>Entrer';
+      el.appendChild(gate);
+      setTimeout(() => gate.focus({ preventScroll: true }), 80);
+      let started = false;
+      el.addEventListener('click', () => {
+        if (started) return finish();
+        started = true;
+        gate.classList.add('is-gone');
+        el.setAttribute('aria-hidden', 'true');
+        run();
+      });
+    } else {
+      el.addEventListener('click', finish);
+      run();
+    }
     return finished;
   }
 

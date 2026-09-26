@@ -18,7 +18,7 @@ self.onmessage = async (e) => {
       const model = m.key === 'tas' ? { key: 'tas', seed: 1, chunks: [], look: {} } : KK.cookieModel(m.key, m.seed, m.opts || {});
       out = await KK.bake.renderLocal(model, m.stage, m.N);
     }
-    const transfer = out && out.alb ? [out.h.buffer, out.a.buffer, out.alb.buffer, out.nao.buffer] : [];
+    const transfer = out && out.alb ? [out.h.buffer, out.alb.buffer, out.nao.buffer] : [];
     self.postMessage({ id: m.id, ok: true, out }, transfer);
   } catch (err) {
     self.postMessage({ id: m.id, ok: false, err: String((err && err.stack) || err) });

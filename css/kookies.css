@@ -1306,4 +1306,22 @@ sup { font-size: 0.65em; }
   opacity: 0.1;
 }
 .splash.is-out { transform: translateY(-104%); }
+/* « Entrer » : le geste qui autorise le son, puis les lettres éclosent en musique */
+.splash-go {
+  position: absolute; left: 50%; bottom: calc(92px + var(--safe-b));
+  display: inline-flex; align-items: center; gap: 9px;
+  height: 52px; padding: 0 26px;
+  border: 0; border-radius: 99px;
+  background: var(--ink); color: var(--cream);
+  font: 700 16px var(--font-ui);
+  cursor: pointer;
+  transform: translateX(-50%);
+  box-shadow: 0 14px 30px -12px rgba(23, 17, 15, 0.5);
+  animation: goIn 0.6s 0.25s var(--spring) both, goBreath 2.6s 1s ease-in-out infinite;
+  transition: opacity 0.25s, transform 0.3s;
+}
+.splash-go .ico { width: 20px; height: 20px; }
+.splash-go.is-gone { opacity: 0; transform: translateX(-50%) scale(0.85); pointer-events: none; animation: none; }
+@keyframes goIn { from { opacity: 0; transform: translateX(-50%) translateY(14px); } }
+@keyframes goBreath { 50% { transform: translateX(-50%) scale(1.04); } }
 .splash-logo { position: relative; width: min(64%, 300px); max-height: 72%; height: auto; overflow: visible; }

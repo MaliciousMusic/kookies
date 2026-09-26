@@ -230,7 +230,7 @@
     });
     const img = await B.shade(F, { rpx: PPU, amp: 1, aoK: 0.035, aoMin: 0.72, wrap: 0.5, sss: mitt ? 0 : 0.08, blur: 12, amb: 0.56, dif: 0.56 });
     castShadow(F, img, W, H);
-    return B.toURL(B.imgToCanvas(img));
+    return B.toPNG(B.imgToCanvas(img));
   }
 
   /* Ombre portée douce de la main (pas de l'avant-bras) : elle pose la main dans la scène */
@@ -262,7 +262,7 @@
   KK.hands = {
     FRAME, HOLD,
     sprite(side, pose, pri = 9) {
-      return KK.bake.job(`main8:${side}:${pose}`, () => KK.bake.remoteOr({ kind: 'hand', side, pose }, () => render(side, pose)), pri);
+      return KK.bake.task(`main8:${side}:${pose}`, { kind: 'hand', side, pose }, () => render(side, pose), pri);
     },
     render, // pour le worker
   };

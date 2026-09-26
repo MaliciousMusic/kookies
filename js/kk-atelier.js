@@ -488,7 +488,7 @@
     addToPlate(i, fl, seed, pri, url, slot) {
       const list = this.plates[i];
       const used = list.map((e) => e.slot);
-      const model = KK.cookieModel(fl.key, seed);
+      const model = KK.cookieModel(fl.key, seed, { keep: false }); // une fournée unique : pas gardée
       const entry = { model, res: url ? 256 : 192, slot: slot != null ? slot : [0, 1, 2].find((k) => !used.includes(k)), c: this.make3q(this.plateGs[i], RC_PLATE) };
       const cocoa = model.look.dough === 'cocoa';
       this.set3q(entry.c, url || null, cocoa);
@@ -530,7 +530,7 @@
       const slot = [0, 1, 2].find((k) => !used.includes(k));
       this.serial++;
       const seed = KK.newSeed();
-      const model = KK.cookieModel(fl.key, seed);
+      const model = KK.cookieModel(fl.key, seed, { keep: false }); // une fournée unique : pas gardée
       const cocoa = model.look.dough === 'cocoa';
       const carrier = PLATES[plate].x < 0 ? -1 : 1;
       const cur = (this.cur = { fl, seed, model, cocoa, plate, slot, carrier, placed: false, baked: null });

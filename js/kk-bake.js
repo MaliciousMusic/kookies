@@ -690,11 +690,11 @@
     return cv;
   }
 
-  /* Image finie : une adresse blob: sur la page ; dans un worker, le PNG lui-même (la page en fera l'adresse) */
-  async function toURL(cv) {
+  /* Image finie : le PNG lui-même (la page en fera une adresse blob: et le gardera dans le téléphone) */
+  async function toPNG(cv) {
     if (IN_WORKER) return cv.convertToBlob({ type: 'image/png' });
     const blob = await new Promise((res) => cv.toBlob(res, 'image/png'));
-    return blob ? URL.createObjectURL(blob) : cv.toDataURL('image/png');
+    return blob || cv.toDataURL('image/png');
   }
 
   const LIGHT = { cookie: { peaks: true }, ball: { amp: 1 }, interior: { aoK: 4 }, mound: { amb: 0.74, dif: 0.42, aoK: 1.5 } };
@@ -765,7 +765,7 @@
       }
       filled.set(next);
     }
-    return { N: W, E: F.E, rpx: Rpx, h: Hm, a: A, alb, nao, pal: P };
+    return { N: W, E: F.E, rpx: Rpx, h: Hm, alb, nao }; // ce dont la 3D a besoin, rien de plus
   }
 
   async function renderLocal(model, stage, N) {
@@ -773,13 +773,13 @@
     if (stage === 'crumb3d') return fields3d(model, N, 'interior');
     if (stage === 'flour3q' || stage === 'sugar3q') {
       const F = await moundFields(stage === 'flour3q' ? 'flour' : 'sugar', N);
-      return toURL(project3q(F, await shade(F, LIGHT.mound)));
+      return toPNG(project3q(F, await shade(F, LIGHT.mound)));
     }
     const fieldStage = stage === '3q' ? 'baked' : stage === 'mass3q' ? 'mass' : stage;
     const F = await cookieFields(model, fieldStage, N);
     const img = await shade(F, fieldStage === 'baked' ? LIGHT.cookie : fieldStage === 'interior' ? LIGHT.interior : LIGHT.ball);
-    if (stage === '3q' || stage === 'mass3q') return toURL(project3q(F, img));
-    return toURL(imgToCanvas(img));
+    if (stage === '3q' || stage === 'mass3q') return toPNG(project3q(F, img));
+    return toPNG(imgToCanvas(img));
   }
 
   /* ======================================================================
@@ -846,12 +846,78 @@
     return p;
   }
 
-  /* une tâche en arrière-plan si possible, sinon ici */
-  async function remoteOr(msg, local) {
-    if (workers().length) {
+  /* ======================================================================
+     La mémoire du téléphone (IndexedDB) : une texture calculée une fois y est
+     gardée ; aux visites suivantes, elle revient en quelques millisecondes.
+     Clés préfixées par la version du site : une nouvelle version repart de zéro.
+     ====================================================================== */
+  const VERSION = (SELF.match(/[?&]v=([^&#]+)/) || [])[1] || 'dev';
+  const vault = (() => {
+    let dbp = null;
+    const open = () => dbp || (dbp = new Promise((res) => {
       try {
-        const out = await remote(msg);
-        return out instanceof Blob ? URL.createObjectURL(out) : out;
+        if (IN_WORKER || typeof indexedDB === 'undefined') return res(null);
+        const rq = indexedDB.open('kookies-four', 1);
+        rq.onupgradeneeded = () => rq.result.createObjectStore('tex');
+        rq.onsuccess = () => res(rq.result);
+        rq.onerror = (e) => { e.preventDefault(); res(null); };
+        rq.onblocked = () => res(null);
+      } catch (e) {
+        res(null);
+      }
+    }));
+    const quiet = (e) => { if (e && e.preventDefault) e.preventDefault(); };
+    return {
+      async get(k) {
+        const db = await open();
+        if (!db) return null;
+        return new Promise((res) => {
+          try {
+            const rq = db.transaction('tex', 'readonly').objectStore('tex').get(VERSION + '|' + k);
+            rq.onsuccess = () => res(rq.result == null ? null : rq.result);
+            rq.onerror = (e) => { quiet(e); res(null); };
+          } catch (e) {
+            res(null);
+          }
+        });
+      },
+      async put(k, v) {
+        const db = await open();
+        if (!db || v == null) return;
+        try {
+          const t = db.transaction('tex', 'readwrite');
+          t.onerror = t.onabort = quiet; // mémoire pleine ou refusée : tant pis, on recalculera
+          t.objectStore('tex').put(v, VERSION + '|' + k).onerror = quiet;
+        } catch (e) { /* idem */ }
+      },
+      /* rangement : les textures d'une ancienne version du site s'en vont */
+      async sweep() {
+        const db = await open();
+        if (!db) return;
+        try {
+          const t = db.transaction('tex', 'readwrite');
+          t.onerror = t.onabort = quiet;
+          const store = t.objectStore('tex');
+          const rq = store.openKeyCursor ? store.openKeyCursor() : store.openCursor();
+          rq.onsuccess = () => {
+            const c = rq.result;
+            if (!c) return;
+            if (!String(c.key).startsWith(VERSION + '|')) store.delete(c.key);
+            c.continue();
+          };
+        } catch (e) { /* rien */ }
+      },
+    };
+  })();
+  if (!IN_WORKER) setTimeout(() => vault.sweep(), 8000);
+
+  const usable = (out) => (typeof Blob !== 'undefined' && out instanceof Blob ? URL.createObjectURL(out) : out);
+
+  /* un calcul : en arrière-plan si possible, sinon ici ; rend le résultat brut (PNG ou champs 3D) */
+  async function compute(msg, local) {
+    if (msg && workers().length) {
+      try {
+        return await remote(msg);
       } catch (e) { /* repli sur la page */ }
     }
     return onMain(local);
@@ -860,18 +926,14 @@
   // un modèle se reconstruit à l'identique dans un worker à partir de (clé, graine, options)
   const remotable = (m) => m && (m.key === 'tas' || (KK.LOOKS && KK.LOOKS[m.key] && m.seed != null && !m.pile));
 
-  function render(model, stage, N) {
-    if (!remotable(model)) return onMain(() => renderLocal(model, stage, N));
-    return remoteOr({ kind: 'bake', key: model.key, seed: model.seed, opts: model.opts || null, stage, N }, () => renderLocal(model, stage, N));
-  }
-
   /* ======================================================================
-     File d'attente (par priorité, plusieurs tâches à la fois avec les workers)
-     + cache avec compteur de références
+     Cache avec compteur de références. Ce qui est dans la mémoire du téléphone
+     revient tout de suite ; seuls les calculs font la queue (par priorité,
+     plusieurs à la fois avec les workers).
      ====================================================================== */
   const cache = new Map();
   const queue = [];
-  let running = 0;
+  let running = 0, looking = 0;
 
   const keyOf = (model, stage, N) => `${model.key}:${model.seed}:${(model.chunks || []).length}:${stage}:${N}`;
 
@@ -881,7 +943,8 @@
       queue.sort((a, b) => b.pri - a.pri);
       const job = queue.shift();
       running++;
-      job.run()
+      Promise.resolve()
+        .then(job.run)
         .then(job.resolve, job.reject)
         .finally(() => {
           running--;
@@ -890,15 +953,29 @@
     }
   }
 
-  function enqueue(k, run, pri) {
+  /* k : clé en mémoire vive ; pkey : clé dans le téléphone (null : pas gardée) ; run : le calcul */
+  function enqueue(k, pkey, run, pri) {
     let e = cache.get(k);
     if (!e) {
-      e = { refs: 0, url: null, k };
-      e.promise = new Promise((resolve, reject) => queue.push({ k, run, pri, resolve, reject }));
+      e = { refs: 0, url: null, k, pri };
+      e.promise = (async () => {
+        if (pkey) {
+          looking++;
+          const hit = await vault.get(pkey);
+          looking--;
+          if (hit != null) return usable(hit);
+        }
+        const out = await new Promise((resolve, reject) => {
+          queue.push({ k, run, pri: e.pri, resolve, reject });
+          pump();
+        });
+        if (pkey) vault.put(pkey, out);
+        return usable(out);
+      })();
       e.promise.then((url) => { e.url = url; });
       cache.set(k, e);
-      pump();
     } else if (!e.url) {
+      e.pri = Math.max(e.pri, pri);
       const q = queue.find((j) => j.k === k);
       if (q) q.pri = Math.max(q.pri, pri);
     }
@@ -908,12 +985,19 @@
   }
 
   function acquire(model, stage = 'baked', N = 320, pri = 0) {
-    return enqueue(keyOf(model, stage, N), () => render(model, stage, N), pri);
+    const k = keyOf(model, stage, N);
+    const msg = remotable(model) ? { kind: 'bake', key: model.key, seed: model.seed, opts: model.opts || null, stage, N } : null;
+    return enqueue(k, model.keep === false ? null : k, () => compute(msg, () => renderLocal(model, stage, N)), pri);
   }
 
-  /* Tâche libre (ex. sprites de mains), cachée sous une clé */
+  /* Tâche libre (ex. les mains), calculée en arrière-plan si possible et gardée sous sa clé */
+  function task(k, msg, local, pri = 0) {
+    return enqueue(k, k, () => compute(msg, local), pri);
+  }
+
+  /* Tâche libre, sur la page, non gardée */
   function job(k, run, pri = 0) {
-    return enqueue(k, run, pri);
+    return enqueue(k, null, () => onMain(run), pri);
   }
 
   function releaseKey(k) {
@@ -948,9 +1032,9 @@
   }
 
   const api = {
-    acquire, release, peek, job, releaseKey, render, renderLocal, remoteOr, budget: 7,
-    newFields, shade, toURL, imgToCanvas, sliced, smooth, sdRoundBox, boxBlur,
-    size: () => cache.size, pending: () => queue.length + running,
+    acquire, release, peek, task, job, releaseKey, renderLocal, budget: 7,
+    newFields, shade, toPNG, imgToCanvas, sliced, smooth, sdRoundBox, boxBlur, vault,
+    size: () => cache.size, pending: () => queue.length + running + looking,
     workers: () => (pool ? pool.length : 0),
   };
   KK.bake = api;

@@ -1246,7 +1246,7 @@ void main() {
       this.vEl = 0;
       this.lastTouch = -1e9;
       this.frame = 0;
-      this.setModel(KK.cookieModel(key, seed));
+      this.setModel(KK.cookieModel(key, seed, { keep: opts.keep }));
       this.bind();
       this.cv._kk3d = this;
       this.box._kk3d = this;
@@ -1277,7 +1277,7 @@ void main() {
       const stick = model.shape === 'stick';
       this.fit = (this.opts.fit || 1) * (stick ? 0.66 : this.pile ? 0.94 : 1);
       this.items = this.pile
-        ? model.pile.map((it, i) => new Item(this, KK.cookieModel(it.look, it.seed, { chunkMul: 0.55 }), PILE3[i % PILE3.length]))
+        ? model.pile.map((it, i) => new Item(this, KK.cookieModel(it.look, it.seed, { chunkMul: 0.55, keep: model.keep }), PILE3[i % PILE3.length]))
         : [new Item(this, model)];
       this.shadowR = stick ? [1.62, 0.58] : this.pile ? [1.2, 1.1] : [1.16, 1.16];
       if (this.yaw == null) this.yaw = stick ? 0.5 : -0.3 + (((model.seed >>> 0) % 100) / 100 - 0.5) * 0.6;
