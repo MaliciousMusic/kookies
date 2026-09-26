@@ -24,7 +24,7 @@
     const cards = [...box.querySelectorAll('.ig')];
     const N = cards.length;
     let order = cards.map((_, i) => i); // order[0] : la carte du dessus
-    let busy = false, drag = null, lastTap = { t: 0, card: null }, peeked = false;
+    let busy = false, drag = null, lastTap = { t: 0, card: null }, peeked = false, peek = null;
 
     const pose = (d) => POSE[Math.min(d, POSE.length - 1)];
     const tf = (p, dx = 0, dy = 0, dr = 0) => `translate(${p.x + dx}px, ${p.y + dy}px) rotate(${p.r + dr}deg) scale(${p.s})`;
@@ -107,6 +107,7 @@
     box.addEventListener('pointerdown', (e) => {
       const c = e.target.closest('.ig');
       if (busy || e.button > 0 || !c || c !== cards[order[0]] || e.target.closest('a, button')) return;
+      if (peek) { peek.cancel(); peek = null; } // on l'attrape pendant qu'elle frétille
       drag = { c, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0, dy: 0, t: e.timeStamp, lx: e.clientX, lt: e.timeStamp, vx: 0, on: false };
     });
     box.addEventListener('pointermove', (e) => {
@@ -150,7 +151,9 @@
     };
     box.addEventListener('pointerup', end);
     box.addEventListener('pointercancel', end);
-    box.addEventListener('lostpointercapture', (e) => { if (drag && drag.on) end(e); });
+    // Au doigt, le téléphone capture d'abord le pointeur sur l'élément touché (la photo…) :
+    // quand la carte le reprend, cet élément le « perd ». Seule la perte par la carte arrête le geste.
+    box.addEventListener('lostpointercapture', (e) => { if (drag && drag.on && e.target === drag.c) end(e); });
 
     box.addEventListener('click', (e) => {
       const b = e.target.closest('.ig-like');
@@ -170,12 +173,13 @@
       setTimeout(() => {
         const c = cards[order[0]];
         if (drag || busy || !c.animate) return;
-        c.animate([
+        peek = c.animate([
           { transform: tf(POSE[0]) },
           { transform: tf(POSE[0], -34, 0, -5), offset: 0.35 },
           { transform: tf(POSE[0], 10, 0, 1.5), offset: 0.7 },
           { transform: tf(POSE[0]) },
         ], { duration: 900, easing: 'ease-in-out' });
+        peek.onfinish = () => (peek = null);
       }, 900);
     });
 
