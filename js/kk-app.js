@@ -487,8 +487,15 @@
     KK.on('view:carte', () => { if (!KK.reduced) KK.sfx.play('neon', { delay: 150 }); });
   }
 
+  /* ---------- Pas de zoom ----------
+     Le double-tap est coupé en CSS (touch-action) ; le pincement ici, pour Safari qui ignore user-scalable=no. */
+  function noZoom() {
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach((t) => document.addEventListener(t, (e) => e.preventDefault(), { passive: false }));
+  }
+
   /* ---------- Démarrage ---------- */
   function init() {
+    noZoom();
     KK.sheets.init();
     KK.shop.init();
     KK.loyalty.init();

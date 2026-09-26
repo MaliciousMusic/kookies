@@ -39,9 +39,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+/* Pas de zoom, ni double-tap ni pincement : l'appli reste stable quand on tape vite.
+   Sur chaque élément, car sur iPhone chaque zone qui défile repart de « auto ». */
+* { touch-action: pan-x pan-y; }
 [hidden] { display: none !important; }
 
 html, body { margin: 0; height: 100%; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-ui);
@@ -55,7 +59,7 @@ body {
 }
 
 button, input { font: inherit; color: inherit; }
-button { -webkit-tap-highlight-color: transparent; }
+button { -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
 :focus-visible { outline: 3px solid var(--plum-3); outline-offset: 2px; }
 .mono { font-family: var(--font-mono); }
 sup { font-size: 0.65em; }
@@ -423,7 +427,7 @@ sup { font-size: 0.65em; }
   background: #efe6d8;
   box-shadow: inset 0 0 0 1px rgba(23, 17, 15, 0.06);
   overflow: hidden;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y;
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -1073,7 +1077,7 @@ sup { font-size: 0.65em; }
   width: min(66%, 260px);
   aspect-ratio: 1;
   cursor: pointer;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y;
 }
 .p-cookie:focus-visible { outline: 3px solid var(--plum-3); outline-offset: 6px; border-radius: 50%; }
 .p-cookie .kk-cookie-svg { overflow: visible; }
