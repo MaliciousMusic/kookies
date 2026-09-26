@@ -252,6 +252,7 @@
       ext: shape === 'stick' ? 1.6 : KK.BAKE_EXT || 1.16,
       bites: bitePlan(r, shape, look),
       rimW: 5.5,
+      opts: opts.chunkMul ? { chunkMul: opts.chunkMul } : undefined,
     };
   }
 

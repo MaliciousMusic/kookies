@@ -271,11 +271,13 @@
     ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'].forEach((type) => {
       window.addEventListener(type, unlock, { capture: true, passive: true });
     });
-    document.addEventListener('visibilitychange', () => {
-      if (!ctx) return;
-      if (document.hidden) ctx.suspend().catch(() => {});
-      else if (on) ctx.resume().catch(() => {});
-    });
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', () => {
+        if (!ctx) return;
+        if (document.hidden) ctx.suspend().catch(() => {});
+        else if (on) ctx.resume().catch(() => {});
+      });
+    }
 
     /* Tenter le son sans geste : certains navigateurs l'autorisent (appli installée sur Android,
        site déjà fréquenté sur ordinateur…). Résout vrai si le son peut partir maintenant. */

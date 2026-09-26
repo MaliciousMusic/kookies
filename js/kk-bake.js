@@ -10,12 +10,14 @@
       ombre dans les creux ;
    4. vue 3/4 : la carte de hauteur est projetée (colonne par colonne) pour
       montrer l'épaisseur des cookies dans l'atelier.
-   Le calcul est découpé en tranches (~7 ms) : l'animation ne saccade jamais.
+   Le calcul part en arrière-plan, dans des workers (plusieurs cœurs, fil
+   principal libre) ; sinon il est découpé en tranches (~7 ms) sur la page.
    ========================================================================== */
 (function () {
   'use strict';
 
   const KK = window.KK;
+  const IN_WORKER = typeof document === 'undefined'; // chargé par kk-worker.js
   const TAU = Math.PI * 2;
   const EXT = 1.16; // la texture couvre [-EXT, EXT]² (en rayons de cookie)
   KK.BAKE_EXT = EXT;
@@ -159,6 +161,10 @@
   }
 
   async function sliced(n, fn) {
+    if (IN_WORKER) { // en arrière-plan : d'une traite, rien à ménager
+      for (let y = 0; y < n; y++) fn(y);
+      return;
+    }
     let y = 0;
     while (y < n) {
       const t0 = performance.now();
@@ -657,13 +663,9 @@
         horizon = t0;
       }
     }
-    const big = document.createElement('canvas');
-    big.width = W2;
-    big.height = H2;
+    const big = canvas(W2, H2);
     big.getContext('2d').putImageData(out, 0, 0);
-    const cv = document.createElement('canvas');
-    cv.width = outW;
-    cv.height = outH;
+    const cv = canvas(outW, outH);
     const ctx = cv.getContext('2d');
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
@@ -674,15 +676,23 @@
   /* Cadre de l'image 3/4 (en rayons) : le centre de la base du cookie est en (0, 0) */
   KK.frame3q = (E = EXT) => ({ x0: -E, x1: E, y0: -E * G3.s - G3.hmax * G3.c, y1: E * G3.s + 0.02 });
 
-  function imgToCanvas(img) {
+  function canvas(w, h) {
+    if (IN_WORKER) return new OffscreenCanvas(w, h);
     const cv = document.createElement('canvas');
-    cv.width = img.width;
-    cv.height = img.height;
+    cv.width = w;
+    cv.height = h;
+    return cv;
+  }
+
+  function imgToCanvas(img) {
+    const cv = canvas(img.width, img.height);
     cv.getContext('2d').putImageData(img, 0, 0);
     return cv;
   }
 
+  /* Image finie : une adresse blob: sur la page ; dans un worker, le PNG lui-même (la page en fera l'adresse) */
   async function toURL(cv) {
+    if (IN_WORKER) return cv.convertToBlob({ type: 'image/png' });
     const blob = await new Promise((res) => cv.toBlob(res, 'image/png'));
     return blob ? URL.createObjectURL(blob) : cv.toDataURL('image/png');
   }
@@ -758,7 +768,7 @@
     return { N: W, E: F.E, rpx: Rpx, h: Hm, a: A, alb, nao, pal: P };
   }
 
-  async function render(model, stage, N) {
+  async function renderLocal(model, stage, N) {
     if (stage === 'fields3d') return fields3d(model, N);
     if (stage === 'crumb3d') return fields3d(model, N, 'interior');
     if (stage === 'flour3q' || stage === 'sugar3q') {
@@ -773,25 +783,111 @@
   }
 
   /* ======================================================================
-     File d'attente + cache avec compteur de références
+     Les aides en arrière-plan : un worker par cœur libre (jusqu'à 4).
+     Repli sur la page, une tâche à la fois, si c'est impossible
+     (ouverture en file://, navigateur sans OffscreenCanvas) ou si un worker lâche.
+     ====================================================================== */
+  const SELF = !IN_WORKER && document.currentScript ? document.currentScript.src : '';
+  const WORKER_URL = SELF ? SELF.replace(/kk-bake\.js(\?[^#]*)?$/, (m, q) => 'kk-worker.js' + (q || '')) : '';
+  let pool = null, seq = 0;
+  const waiting = new Map();
+
+  function workers() {
+    if (pool) return pool;
+    pool = [];
+    if (IN_WORKER || !WORKER_URL || typeof Worker === 'undefined' || typeof OffscreenCanvas === 'undefined' || location.protocol === 'file:') return pool;
+    if (/[?&]noworker\b/.test(location.search)) return pool; // pour comparer : tout sur la page
+    const n = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1));
+    try {
+      for (let i = 0; i < n; i++) {
+        const slot = { w: new Worker(WORKER_URL), busy: 0 };
+        slot.w.onmessage = (e) => {
+          const cb = waiting.get(e.data.id);
+          if (!cb) return;
+          waiting.delete(e.data.id);
+          slot.busy--;
+          if (e.data.ok) cb.resolve(e.data.out);
+          else { broken(); cb.reject(new Error(e.data.err)); }
+        };
+        slot.w.onerror = (e) => { e.preventDefault(); broken(); };
+        pool.push(slot);
+      }
+    } catch (e) {
+      broken();
+    }
+    return pool;
+  }
+
+  /* un worker a lâché : on les arrête, tout ce qu'ils devaient rendre sera calculé sur la page */
+  function broken() {
+    (pool || []).forEach((s) => s.w.terminate());
+    pool = [];
+    waiting.forEach((cb) => cb.reject(new Error('worker')));
+    waiting.clear();
+  }
+
+  function remote(msg) {
+    const p = workers();
+    if (!p.length) return Promise.reject(new Error('pas de worker'));
+    const slot = p.reduce((a, b) => (b.busy < a.busy ? b : a));
+    const id = ++seq;
+    slot.busy++;
+    return new Promise((resolve, reject) => {
+      waiting.set(id, { resolve, reject });
+      slot.w.postMessage(Object.assign({ id }, msg));
+    });
+  }
+
+  // sur la page, une seule tâche à la fois (chacune se découpe déjà en tranches)
+  let lock = Promise.resolve();
+  function onMain(fn) {
+    const p = lock.then(fn, fn);
+    lock = p.catch(() => {});
+    return p;
+  }
+
+  /* une tâche en arrière-plan si possible, sinon ici */
+  async function remoteOr(msg, local) {
+    if (workers().length) {
+      try {
+        const out = await remote(msg);
+        return out instanceof Blob ? URL.createObjectURL(out) : out;
+      } catch (e) { /* repli sur la page */ }
+    }
+    return onMain(local);
+  }
+
+  // un modèle se reconstruit à l'identique dans un worker à partir de (clé, graine, options)
+  const remotable = (m) => m && (m.key === 'tas' || (KK.LOOKS && KK.LOOKS[m.key] && m.seed != null && !m.pile));
+
+  function render(model, stage, N) {
+    if (!remotable(model)) return onMain(() => renderLocal(model, stage, N));
+    return remoteOr({ kind: 'bake', key: model.key, seed: model.seed, opts: model.opts || null, stage, N }, () => renderLocal(model, stage, N));
+  }
+
+  /* ======================================================================
+     File d'attente (par priorité, plusieurs tâches à la fois avec les workers)
+     + cache avec compteur de références
      ====================================================================== */
   const cache = new Map();
   const queue = [];
-  let busy = false;
+  let running = 0;
 
   const keyOf = (model, stage, N) => `${model.key}:${model.seed}:${(model.chunks || []).length}:${stage}:${N}`;
 
   function pump() {
-    if (busy || !queue.length) return;
-    queue.sort((a, b) => b.pri - a.pri);
-    const job = queue.shift();
-    busy = true;
-    job.run()
-      .then(job.resolve, job.reject)
-      .finally(() => {
-        busy = false;
-        pump();
-      });
+    const cap = Math.max(1, workers().length);
+    while (running < cap && queue.length) {
+      queue.sort((a, b) => b.pri - a.pri);
+      const job = queue.shift();
+      running++;
+      job.run()
+        .then(job.resolve, job.reject)
+        .finally(() => {
+          running--;
+          pump();
+        });
+    }
   }
 
   function enqueue(k, run, pri) {
@@ -852,9 +948,10 @@
   }
 
   const api = {
-    acquire, release, peek, job, releaseKey, render, budget: 7,
+    acquire, release, peek, job, releaseKey, render, renderLocal, remoteOr, budget: 7,
     newFields, shade, toURL, imgToCanvas, sliced, smooth, sdRoundBox, boxBlur,
-    size: () => cache.size, pending: () => queue.length + (busy ? 1 : 0),
+    size: () => cache.size, pending: () => queue.length + running,
+    workers: () => (pool ? pool.length : 0),
   };
   KK.bake = api;
 })();

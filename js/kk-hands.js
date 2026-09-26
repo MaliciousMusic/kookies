@@ -262,7 +262,8 @@
   KK.hands = {
     FRAME, HOLD,
     sprite(side, pose, pri = 9) {
-      return KK.bake.job(`main8:${side}:${pose}`, () => render(side, pose), pri);
+      return KK.bake.job(`main8:${side}:${pose}`, () => KK.bake.remoteOr({ kind: 'hand', side, pose }, () => render(side, pose)), pri);
     },
+    render, // pour le worker
   };
 })();
