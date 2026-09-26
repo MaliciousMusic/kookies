@@ -7,9 +7,10 @@ HTML/CSS/JS sans framework ni build : ça s'ouvre tel quel et s'héberge n'impor
 
 **https://maliciousmusic.github.io/kookies/**
 
-Publié par GitHub Pages depuis la branche `main` du dépôt [MaliciousMusic/kookies](https://github.com/MaliciousMusic/kookies). Mettre à jour le site = pousser sur `main` (GitHub republie en une minute environ) :
+Publié par GitHub Pages depuis la branche `main` du dépôt [MaliciousMusic/kookies](https://github.com/MaliciousMusic/kookies). Mettre à jour le site = estampiller les scripts puis pousser sur `main` (GitHub republie en une minute environ) :
 
 ```bash
+node tools/bump.mjs
 git add -A
 git commit -m "Mise à jour"
 git push
@@ -61,6 +62,7 @@ assets/logo/          logo vectorisé (SVG + JSON des 8 lettres)
 assets/img/insta/     les posts de la pile, recadrés en 4:5 (WebP)
 tools/set-pin.mjs     changer le code équipe de la carte fidélité
 tools/set-domain.mjs  mettre le vrai domaine dans tous les fichiers SEO
+tools/bump.mjs        estampiller CSS et JS avant chaque publication (cache de GitHub Pages)
 assets/icons/         icônes d'écran d'accueil (logo noir sur blanc), favicon
 llms.txt, robots.txt, sitemap.xml, manifest.webmanifest
 ```
