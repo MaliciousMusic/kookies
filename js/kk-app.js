@@ -325,6 +325,7 @@
   // « K-o-o-k… i-e-s ! » : [tracés du logo, instant (s), note MIDI] ; le i a son point
   const SPLASH_SEQ = [[[0], 0, 67], [[2], 0.13, 72], [[4], 0.26, 76], [[1], 0.42, 79], [[6, 3], 0.62, 81], [[7], 0.75, 79], [[5], 0.92, 84]];
   const SPLASH_CHORD = 1.12;
+  const LOGO_CY = 256; // centre de masse du logo (le grand « Kok » pèse en haut) : c'est lui qu'on centre
 
   function splash() {
     const el = $('#splash');
@@ -339,7 +340,7 @@
     }
     try { sessionStorage.setItem('kk:splash', '1'); } catch (e) { /* ignoré */ }
     const L = KK.LOGO, svgNS = KK.svg;
-    const s = svgNS('svg', { viewBox: `-60 -60 ${L.w + 120} ${L.h + 120}`, class: 'splash-logo', 'aria-hidden': 'true' });
+    const s = svgNS('svg', { viewBox: `-60 ${LOGO_CY - (L.h + 120) / 2} ${L.w + 120} ${L.h + 120}`, class: 'splash-logo', 'aria-hidden': 'true' });
     el.insertBefore(s, el.firstChild);
     const defs = svgNS('defs', null, s);
     const mask = svgNS('mask', { id: 'splash-m', maskUnits: 'userSpaceOnUse', x: -300, y: -300, width: L.w + 600, height: L.h + 600 }, defs);
@@ -352,7 +353,7 @@
     const letters = L.paths.map((p) => svgNS('path', { d: p.d, 'fill-rule': 'evenodd', style: 'opacity:0' }, logoG));
     const fx = svgNS('g', null, s);
 
-    let done = false, started = false, gate = null, resolveDone;
+    let done = false, resolveDone;
     const timers = [];
     const later = (sec, fn) => timers.push(setTimeout(() => { if (!done) fn(); }, sec * 1000));
     const finished = new Promise((r) => (resolveDone = r));
@@ -384,10 +385,6 @@
     ];
 
     function run() {
-      if (started) return;
-      started = true;
-      if (gate) gate.classList.add('is-gone');
-      el.setAttribute('aria-hidden', 'true');
       // la mélodie est calée sur l'horloge audio ; les lettres la suivent
       const lag = KK.sfx.latency();
       SPLASH_SEQ.forEach(([paths, at, note], k) => {
@@ -412,21 +409,10 @@
       later(SPLASH_CHORD + 1.75, finish);
     }
 
-    // avec le son, il faut d'abord un geste (les navigateurs l'exigent) : « Entrer »
-    if (KK.sfx.on && KK.sfx.supported) {
-      el.removeAttribute('aria-hidden');
-      gate = document.createElement('button');
-      gate.type = 'button';
-      gate.className = 'splash-go';
-      gate.dataset.sfx = 'none';
-      gate.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#i-sound"/></svg>Entrer';
-      el.appendChild(gate);
-      setTimeout(() => gate.focus({ preventScroll: true }), 80);
-      el.addEventListener('click', () => (started ? finish() : run()));
-    } else {
-      el.addEventListener('click', finish);
-      run();
-    }
+    // pas de bouton : l'animation part tout de suite ; la mélodie aussi, si le navigateur laisse
+    // jouer du son sans geste (appli installée sur Android, ordinateur…), sinon elle reste muette
+    el.addEventListener('click', finish);
+    KK.sfx.autoplay().then(run);
     return finished;
   }
 

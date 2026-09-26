@@ -277,6 +277,32 @@
       else if (on) ctx.resume().catch(() => {});
     });
 
+    /* Tenter le son sans geste : certains navigateurs l'autorisent (appli installée sur Android,
+       site déjà fréquenté sur ordinateur…). Résout vrai si le son peut partir maintenant. */
+    function autoplay() {
+      return new Promise((resolve) => {
+        if (!on || !AC) return resolve(false);
+        try {
+          if (navigator.getAutoplayPolicy && navigator.getAutoplayPolicy('audiocontext') === 'disallowed') return resolve(false);
+        } catch (e) { /* API absente */ }
+        if (!ctx) {
+          try {
+            if (navigator.audioSession) navigator.audioSession.type = 'ambient';
+          } catch (e) { /* API absente */ }
+          try {
+            ctx = new AC();
+            bus = makeBus(ctx);
+          } catch (e) {
+            ctx = null;
+            return resolve(false);
+          }
+        }
+        if (ctx.state === 'running') return resolve(true);
+        ctx.resume().then(() => resolve(ctx.state === 'running'), () => resolve(false));
+        setTimeout(() => resolve(ctx.state === 'running'), 160); // refusé : on n'attend pas
+      });
+    }
+
     /* contexte utilisable maintenant (sinon rien : pas de sons en attente rejoués d'un coup) */
     function live() {
       if (!on || !ctx) return null;
@@ -605,7 +631,7 @@
     const latency = () => (ctx ? (ctx.outputLatency || ctx.baseLatency || 0) + 0.005 : 0);
 
     return {
-      play, channel, unlock, latency,
+      play, channel, unlock, latency, autoplay,
       supported: !!AC,
       crunch: (power = 1) => play('crunch', { power }),
       pop: () => play('pop'),
