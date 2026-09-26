@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kookies · Cookies faits maison à Clermont-Ferrand — réservation & retrait en boutique</title>
+  <meta name="description" content="Kookies, la boutique de cookies faits maison du 11b rue Saint-Esprit à Clermont-Ferrand. Moelleux dedans, croustillants dehors, un Kookie du mois chaque mois. Réservez en ligne, retirez en boutique. Du mardi au samedi, 11h–19h.">
+  <!-- MAQUETTE : adresse GitHub Pages ; le vrai domaine se met partout d'un coup :
+       node tools/set-domain.mjs https://www.mon-domaine.fr (canonical, og, JSON-LD, sitemap, robots, llms.txt) -->
+  <link rel="canonical" href="https://maliciousmusic.github.io/kookies/">
+  <meta name="theme-color" content="#4A1531">
+  <meta name="color-scheme" content="light">
+  <!-- MAQUETTE en ligne : pas d'indexation tant que prix et paiement sont fictifs.
+       À la mise en ligne : content="index, follow, max-image-preview:large" -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Kookies Clermont-Ferrand">
+  <meta property="og:title" content="Kookies — cookies faits maison à Clermont-Ferrand">
+  <meta property="og:description" content="Moelleux dedans, croustillants dehors. Un Kookie du mois, la réservation en ligne et la carte fidélité dans la poche. 11b rue Saint-Esprit.">
+  <meta property="og:url" content="https://maliciousmusic.github.io/kookies/">
+  <meta property="og:image" content="https://maliciousmusic.github.io/kookies/assets/img/kookies-duo.jpg">
+  <meta property="og:image:alt" content="Les deux créatrices de Kookies devant l'enseigne néon de la boutique">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta name="geo.region" content="FR-63">
+  <meta name="geo.placename" content="Clermont-Ferrand">
+  <meta name="geo.position" content="45.77604;3.08628">
+  <meta name="ICBM" content="45.77604, 3.08628">
+
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Kookies">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="alternate" type="text/markdown" href="llms.txt" title="Kookies — résumé pour assistants IA">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Oswald:wght@500;600&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400..800&display=swap">
+  <link rel="stylesheet" href="css/kookies.css">
+
+  <!-- Données structurées : boutique, carte, site, FAQ (lues par Google ET par les IA) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Bakery",
+        "@id": "https://maliciousmusic.github.io/kookies/#boutique",
+        "name": "Kookies",
+        "alternateName": ["Kookies Clermont-Ferrand", "Kookies CLF"],
+        "description": "Boutique de cookies faits maison à Clermont-Ferrand : cookies épais, moelleux dedans et croustillants dehors, souvent garnis (Kinder Country, Kinder Bueno, pâte de pistache), un Kookie du mois, formats XXL, stick et mini kookies. Réservation en ligne et retrait en boutique, sans livraison.",
+        "url": "https://maliciousmusic.github.io/kookies/",
+        "image": ["https://maliciousmusic.github.io/kookies/assets/img/kookies-duo.jpg"],
+        "logo": "https://maliciousmusic.github.io/kookies/assets/icons/icon-512.png",
+        "telephone": "+33473262795",
+        "priceRange": "€",
+        "servesCuisine": ["Cookies", "Pâtisserie"],
+        "currenciesAccepted": "EUR",
+        "paymentAccepted": "Carte bancaire, espèces, paiement en ligne",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "11b rue Saint-Esprit",
+          "postalCode": "63000",
+          "addressLocality": "Clermont-Ferrand",
+          "addressRegion": "Auvergne-Rhône-Alpes",
+          "addressCountry": "FR"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 45.77604, "longitude": 3.08628 },
+        "hasMap": "https://www.openstreetmap.org/?mlat=45.77604&mlon=3.08628#map=19/45.77604/3.08628",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["https://schema.org/Tuesday", "https://schema.org/Wednesday", "https://schema.org/Thursday", "https://schema.org/Friday", "https://schema.org/Saturday"],
+            "opens": "11:00",
+            "closes": "19:00"
+          }
+        ],
+        "sameAs": ["https://www.instagram.com/kookies_clf/", "https://www.facebook.com/kookies.clfd/"],
+        "hasMenu": { "@id": "https://maliciousmusic.github.io/kookies/#carte" },
+        "acceptsReservations": true,
+        "potentialAction": {
+          "@type": "OrderAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://maliciousmusic.github.io/kookies/#carte",
+            "inLanguage": "fr",
+            "actionPlatform": ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"]
+          },
+          "deliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModePickUp"
+        }
+      },
+      {
+        "@type": "Menu",
+        "@id": "https://maliciousmusic.github.io/kookies/#carte",
+        "name": "La carte Kookies",
+        "inLanguage": "fr",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Les Kookies",
+            "hasMenuItem": [
+              { "@type": "MenuItem", "name": "Le Marbré (Kookie du mois)", "description": "Chocolat, vanille, fleur de sel et pépites de chocolat blanc.", "offers": { "@type": "Offer", "price": "3.50", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Le Classique", "description": "Pâte beurrée et grosses pépites de chocolat noir.", "offers": { "@type": "Offer", "price": "3.00", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Triple Choc", "description": "Pâte cacao, chocolat noir, au lait et blanc.", "offers": { "@type": "Offer", "price": "3.50", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Le Country", "description": "Cookie épais doré avec un morceau de Kinder Country planté dessus.", "offers": { "@type": "Offer", "price": "3.80", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Le Bueno", "description": "Cookie cacao, crème noisette et morceau de Kinder Bueno.", "offers": { "@type": "Offer", "price": "3.80", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Pistache", "description": "Cookie épais nappé de pâte de pistache, éclats de pistache et sucre glace.", "offers": { "@type": "Offer", "price": "3.80", "priceCurrency": "EUR" } }
+            ]
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Les formats",
+            "hasMenuItem": [
+              { "@type": "MenuItem", "name": "Kookie XXL", "description": "Cookie géant à partager, 6 à 8 parts.", "offers": { "@type": "Offer", "price": "18.00", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Kookies stick", "description": "Le cookie en bâtonnet, à grignoter ou à tremper.", "offers": { "@type": "Offer", "price": "2.50", "priceCurrency": "EUR" } },
+              { "@type": "MenuItem", "name": "Mini kookies", "description": "Mini cookies par 30, 50 ou 100, sur commande pour les événements.", "offers": { "@type": "Offer", "price": "25.00", "priceCurrency": "EUR" } }
+            ]
+          }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://maliciousmusic.github.io/kookies/#site",
+        "url": "https://maliciousmusic.github.io/kookies/",
+        "name": "Kookies",
+        "inLanguage": "fr-FR",
+        "publisher": { "@id": "https://maliciousmusic.github.io/kookies/#boutique" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://maliciousmusic.github.io/kookies/#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Où acheter des cookies faits maison à Clermont-Ferrand ?", "acceptedAnswer": { "@type": "Answer", "text": "Chez Kookies, 11b rue Saint-Esprit, 63000 Clermont-Ferrand, en centre-ville. La boutique est ouverte du mardi au samedi, de 11h à 19h." } },
+          { "@type": "Question", "name": "Peut-on réserver ses cookies à l'avance ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. On choisit ses Kookies sur le site, un créneau de retrait, on paie en ligne et on récupère la commande en boutique. Il n'y a pas de livraison." } },
+          { "@type": "Question", "name": "C'est quoi le Kookie du mois ?", "acceptedAnswer": { "@type": "Answer", "text": "Chaque mois, Kookies sort une recette éphémère. En septembre 2026, c'est le Marbré : chocolat, vanille, fleur de sel et pépites de chocolat blanc." } },
+          { "@type": "Question", "name": "Faites-vous des cookies pour les événements ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : les mini kookies se commandent par 30, 50 ou 100 pour les anniversaires, mariages ou pots d'équipe, et le Kookie XXL se partage à 6 ou 8." } },
+          { "@type": "Question", "name": "Comment marche la carte fidélité Kookies ?", "acceptedAnswer": { "@type": "Answer", "text": "La carte est dans l'appli : un Kookie acheté, un tampon, validé au comptoir avec le code de l'équipe (en ligne, c'est automatique). À chaque carte pleine de dix tampons, un Kookie est offert." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <noscript>
+    <style>
+      .views { position: static; overflow: visible; }
+      .view { position: relative; opacity: 1; visibility: visible; transform: none; }
+      .view-scroll { overflow: visible; height: auto; }
+      .app { height: auto; overflow: visible; }
+      .tabbar, .factory, .sheet { display: none; }
+    </style>
+  </noscript>
+</head>
+
+<body>
+  <!-- Pictos réutilisables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="logo" viewBox="0 0 544 560"><g fill-rule="evenodd"><path d="M126 5.6C149.7 5.6 166.3 26.8 160 49.8C157.4 59.2 150.3 66 144.9 73.9C133.3 91 120.3 115.3 139.6 132.2C151.4 142.4 164.2 136.4 172.5 125.5C177 119.7 180.1 112.9 184.6 107.1C200.2 87 224.7 68 251.6 72.6C256.3 73.4 260.8 75.3 265 77.5C280.9 85.8 285.2 99.7 281 116.4C276.1 135.3 265.2 151.6 247 159.8C225.4 169.6 201.7 171.4 179.3 178.3C172.5 180.4 158.8 184.3 155.7 191.2C153.8 195.3 155.4 200.3 158.4 203.4C160.8 206 164.1 208.1 166.8 210.5C173 215.6 178.9 221.2 184.3 227.2C193.8 237.7 202.3 249.7 207 263.2C216.6 290 212.4 322.9 185.2 337.6C179.3 340.8 173 342.5 166.3 343C160.9 343.4 155.2 342.2 150.2 340.2C133.6 333.5 124.3 316 126.9 298.4C128 290.4 130.7 282.7 131.4 274.7C132.7 260.4 126.9 243.2 111.3 239.9C100.7 237.7 94 248.2 92.6 257.2C90.4 271.3 94.2 286.2 87.9 299.5C76 324.5 51 335.4 27.7 317.4C22.3 313.2 17.2 308.1 13.6 302.2C-1.4 277.8 8.4 252 15.1 226.8C24.2 192.4 34.2 158.3 44.5 124.2C51.5 100.8 59.7 77.3 69.9 55.1C80.3 32.4 97.8 5.6 126 5.6Z"/><path d="M424.5 171C426 171.4 427 172 428.7 171.6C433.4 170.7 442.3 160.5 446.5 157.2C458.2 147.9 472.9 147.6 485.2 156.3C496.7 164.4 497.8 182 488.3 192.2C483.4 197.5 474.2 201.1 474.5 209.6C474.8 219.3 485.4 224.3 492.2 229.3C504.5 238.6 513.5 258.1 501.9 271.4C499.2 274.5 495.9 276.8 492 278.1C488.8 279.3 485.5 279.2 482.2 278.6C459.3 274.3 467.2 239.8 446.4 233.3C443.3 232.3 439.7 231.9 436.6 232.7C431.6 234 427.3 238.5 427.9 243.9C428.8 251.8 434 257.8 435.3 265.6C438.5 284.5 423.2 306.7 402.2 300.3C380.8 293.6 380.6 256.4 377.3 238.1C371.6 205.6 367.7 172.8 363.4 140.2C360.5 118.8 357.3 97.3 356.5 75.7C356 61.9 352.1 40.1 360.5 28.2C363.5 24 367.9 21.1 372.4 18.7C387.6 10.6 405.4 13.5 410.3 31.8C413.1 42 412.6 53 413.8 63.5C416.6 88.2 418.2 113.1 420 138C420.4 144.4 420.3 162.8 421.9 167.6C422.4 169.3 423.4 169.8 424.5 171Z"/><path d="M287.9 160.7C298.2 160.7 308.5 163.4 317.5 168.3C366.4 194.6 363.6 267.1 313.9 290.7C305.7 294.6 296.3 296.4 287.2 296.4C275.5 296.4 263.8 292.6 253.9 286.4C209 257.8 213.9 188.3 262.3 166.2C270.2 162.6 279.3 160.7 287.9 160.7ZM296.8 185.4C322.2 185.2 322.5 219.7 297.3 220C272.1 220.4 271.4 185.7 296.8 185.4Z"/><path d="M250.2 311.4C282.2 311.4 284.9 352.4 251.6 352.5C228.4 352.6 211.5 323.8 238.3 313.3C242.1 311.8 246.2 311.3 250.2 311.4Z"/><path d="M342.3 300.3C349.7 300.3 356.9 301.5 363.6 304.6C420.7 331 403.1 419.9 342.3 420.3C280.8 420.6 263.6 330.5 319.8 304.8C327 301.6 334.4 300.3 342.3 300.3ZM342 324.6C363.6 324.7 363.7 354.8 341.8 354.6C319.8 354.4 320.5 324.5 342 324.6Z"/><path d="M477.7 304.3C498.1 304.4 524.6 312.3 534.3 332.1C536.8 337.1 537.8 342.6 536.5 348.1C535.6 351.9 533.2 355.7 530.2 358.1C520.2 366.2 510.3 357 500.6 353.7C494.3 351.6 485.5 354.3 483.6 361.6C480.4 374 495.4 381.8 502.8 388.9C505.7 391.7 508.2 394.8 510.5 398.2C532.3 430.7 511.2 473.5 470.9 471.4C447.1 470.2 412.4 454.5 412.4 426.8C412.4 420.8 413.6 415.1 417.3 410.2C425.8 398.9 445.5 396.7 452.1 411.2C455.8 419.3 454 428.9 458.6 436.7C464.8 447.1 478.7 442.7 483.8 433.8C487.3 427.7 488.2 420.3 486.9 413.5C480.1 378 446.4 374.5 432.8 349.4C429.8 343.9 429.6 337.1 431.3 331.2C437.5 309.6 457.6 304.2 477.7 304.3Z"/><path d="M243.7 364.5C258.4 364.4 264.7 382 267.3 393.8C271.8 414.8 270.1 442.2 262.6 462.3C257.8 475.2 248.7 485.7 234 485.4C214.8 484.9 210.8 474 210.1 456.8C209.3 435.5 212.3 408.5 219.6 388.4C223.5 377.6 230.6 364.6 243.7 364.5Z"/><path d="M346.8 431.8C350.7 431.7 355.1 432.5 358.7 434C365 436.8 369.7 441.2 372.6 447.4C379.8 463.2 371.3 480.7 362 493.6C357.3 500.2 349.8 508.7 355.2 517.2C359.9 524.6 369.8 525.3 376.4 520.2C386 512.8 388.1 499.9 395.4 490.8C399.5 485.6 407.9 480.8 413 487.4C417.6 493.3 415.4 503.3 413.7 509.9C408.1 532.9 387.7 551.3 363.9 553.5C328.5 556.7 299.9 529.9 297.6 494.8C295.9 467.5 316.8 432.3 346.8 431.8ZM341.9 451.7C362.6 452.2 353 490.6 334.3 489.4C313.2 488.1 320.9 451.3 341.9 451.7Z"/></g></symbol>
+      <symbol id="i-oven" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16.5" rx="3.4"/><path d="M3 8.8h18"/><path d="M6.4 6.4h.01M9.2 6.4h.01"/><path d="M14.6 6.4h3"/><rect x="6.2" y="11.4" width="11.6" height="6" rx="1.8"/><path d="M8.6 14.9c1.1-1.3 2.2-1.9 3.4-1.9s2.3.6 3.4 1.9"/></symbol>
+      <symbol id="i-cookie" viewBox="0 0 24 24"><path d="M20.6 12.6a8.6 8.6 0 1 1-9.1-9.1 3.1 3.1 0 0 0 3.6 3.5 3.1 3.1 0 0 0 5.5 5.6z"/><circle cx="9" cy="10" r=".6"/><circle cx="14.2" cy="15.3" r=".6"/><circle cx="8.6" cy="15.6" r=".6"/></symbol>
+      <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="3"/><circle cx="8" cy="12" r="1.7"/><circle cx="12.5" cy="12" r="1.7"/><path d="M17 10.3v.01M17 13.7v.01M15.3 12h.01M18.7 12h.01"/></symbol>
+      <symbol id="i-duo" viewBox="0 0 24 24"><circle cx="8.3" cy="8.6" r="3"/><circle cx="15.7" cy="8.6" r="3"/><path d="M2.8 19.5c.8-3.2 3-4.8 5.5-4.8s4.7 1.6 5.5 4.8M10.8 15.4c1.2-.5 2.9-.7 4.9-.7 2.5 0 4.7 1.6 5.5 4.8"/></symbol>
+      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8.5h14l-1.1 11.5H6.1z"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-turn" viewBox="0 0 24 24"><ellipse cx="12" cy="12.5" rx="8.5" ry="3.6"/><path d="M15.2 5.4a8.6 8.6 0 0 1 4.9 3.3M18.2 5.6l1.9 3.1-3.5.6"/><path d="M8.8 19.6a8.6 8.6 0 0 1-4.9-3.3M5.8 19.4l-1.9-3.1 3.5-.6"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h3.3l1.8 4.5-2.2 1.4a11 11 0 0 0 5.7 5.7l1.4-2.2 4.5 1.8v3.3a2 2 0 0 1-2.2 2A16 16 0 0 1 3.5 6.2 2 2 0 0 1 5.5 4z"/></symbol>
+      <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7v.01"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9.2a4 4 0 0 1 0 5.6M18 7a7.2 7.2 0 0 1 0 10"/></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+      <symbol id="i-stamp" viewBox="0 0 24 24"><path d="M9 3.5h6l-1 6h3.5a2 2 0 0 1 2 2V14H4.5v-2.5a2 2 0 0 1 2-2H10z"/><path d="M4.5 17.5h15"/></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11" rx="2"/><path d="M12 9v11M3.5 13h17M12 9C10 5 6.5 5.5 7 7.5S12 9 12 9zM12 9c2-4 5.5-3.5 5-1.5S12 9 12 9z"/></symbol>
+      <symbol id="i-del" viewBox="0 0 24 24"><path d="M9 5.5h10.5A1.5 1.5 0 0 1 21 7v10a1.5 1.5 0 0 1-1.5 1.5H9L3 12z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.3C6.2 16.5 3 13 3 9.3 3 6.5 5.1 4.5 7.6 4.5c1.8 0 3.4 1 4.4 2.7 1-1.7 2.6-2.7 4.4-2.7 2.5 0 4.6 2 4.6 4.8 0 3.7-3.2 7.2-9 11z"/></symbol>
+      <symbol id="i-comment" viewBox="0 0 24 24"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.4 7.6l-4.6 1.3 1.3-4.4a8.5 8.5 0 1 1 15.7-4.5z"/></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3.5 10.3 13.7"/><path d="M21 3.5l-6.5 17-4.2-6.8-6.8-4.2z"/></symbol>
+      <symbol id="i-save" viewBox="0 0 24 24"><path d="M18.5 20.5 12 15.4l-6.5 5.1V4.9c0-.8.6-1.4 1.4-1.4h10.2c.8 0 1.4.6 1.4 1.4z"/></symbol>
+      <symbol id="i-reel" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M3 8.3h18M8.3 3.2l2.9 5M14.3 3.2l2.9 5"/><path d="M10.2 11.9v5.2l4.5-2.6z"/></symbol>
+      <symbol id="i-stripe" viewBox="0 0 24 24"><path d="M13.6 9.4c-1.2-.5-2.1-.8-2.1-1.4 0-.5.4-.8 1.2-.8 1.3 0 2.7.5 3.6 1V4.9A9.5 9.5 0 0 0 12.7 4C9.8 4 7.8 5.6 7.8 8.2c0 4.1 5.6 3.4 5.6 5.2 0 .6-.5.9-1.3.9-1.2 0-3-.6-4.2-1.3v3.4a10 10 0 0 0 4.2.9c3 0 5.1-1.5 5.1-4.2 0-4.4-5.6-3.6-5.6-5.3"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="scene">
+    <!-- Décor grand écran : néon + carrelage prune de la boutique -->
+    <aside class="decor" aria-hidden="true">
+      <div class="decor-inner">
+        <svg class="neon" viewBox="0 0 544 560" aria-hidden="true"><use href="#logo"/></svg>
+        <p class="decor-def"><span class="mono">[kük.iz]</span> <i>n. m. pl.</i> — Cookies faits maison à Clermont-Ferrand. 0&nbsp;% culpabilité, 100&nbsp;% bonheur.</p>
+        <div class="decor-meta">
+          <span>11b rue Saint-Esprit</span>
+          <span>Mar–sam · 11h–19h</span>
+        </div>
+        <div class="decor-qr">
+          <div class="qr-box" id="decor-qr"></div>
+          <p>Scanne pour l’ouvrir sur ton téléphone. C’est là qu’elle est la plus jolie.</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="app" id="app">
+      <div class="splash" id="splash" aria-hidden="true"><p class="splash-def">[KÜK.IZ] · NOM : COOKIES</p></div>
+      <header class="topbar">
+        <a class="brand" href="#fournee" aria-label="Kookies — accueil">
+          <svg class="brand-logo" viewBox="0 0 544 560" aria-hidden="true"><use href="#logo"/></svg>
+        </a>
+        <button class="flaps" id="status" type="button" aria-expanded="false" aria-controls="hours-panel" aria-label="Horaires : du mardi au samedi, 11h–19h">
+          <span class="flap" data-flap="state" aria-hidden="true">OPEN</span>
+          <span class="flap flap--word" data-flap="word" aria-hidden="true">UNTIL</span>
+          <span class="flap" data-flap="day" aria-hidden="true" hidden>TUE</span>
+          <span class="flap" data-flap="time" aria-hidden="true">19H</span>
+        </button>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="sound-btn" type="button" data-sfx="none" aria-pressed="true" aria-label="Sons activés">
+            <svg class="ico"><use href="#i-sound"/></svg>
+          </button>
+          <button class="icon-btn cart-btn" id="cart-btn" type="button" aria-label="Ma réservation (vide)">
+            <svg class="ico cart-bag"><use href="#i-bag"/></svg>
+            <span class="cart-cookie" id="cart-cookie" aria-hidden="true" hidden></span>
+            <span class="badge" id="cart-badge" hidden>0</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Horaires : se déplient depuis les volets OPEN / UNTIL / 19H -->
+      <div class="hours-panel" id="hours-panel" hidden>
+        <section class="hours-sheet" aria-labelledby="t-hours">
+          <div class="flipcal" id="flipcal" aria-hidden="true">
+            <span class="flap flap--lg">SAT</span>
+            <span class="flap flap--lg">26</span>
+            <span class="flap flap--lg">SEP</span>
+          </div>
+          <h2 class="hours-title" id="t-hours">Horaires d’ouverture</h2>
+          <dl class="hours" id="hours">
+            <div data-day="1" style="--r:0"><dt>Lundi</dt><dd><span class="tile tile--shut">Fermé</span></dd></div>
+            <div data-day="2" style="--r:1"><dt>Mardi</dt><dd><time class="tile" datetime="11:00">11<span class="vh">h</span></time><i aria-hidden="true">→</i><time class="tile" datetime="19:00">19<span class="vh">h</span></time></dd></div>
+            <div data-day="3" style="--r:2"><dt>Mercredi</dt><dd><time class="tile" datetime="11:00">11<span class="vh">h</span></time><i aria-hidden="true">→</i><time class="tile" datetime="19:00">19<span class="vh">h</span></time></dd></div>
+            <div data-day="4" style="--r:3"><dt>Jeudi</dt><dd><time class="tile" datetime="11:00">11<span class="vh">h</span></time><i aria-hidden="true">→</i><time class="tile" datetime="19:00">19<span class="vh">h</span></time></dd></div>
+            <div data-day="5" style="--r:4"><dt>Vendredi</dt><dd><time class="tile" datetime="11:00">11<span class="vh">h</span></time><i aria-hidden="true">→</i><time class="tile" datetime="19:00">19<span class="vh">h</span></time></dd></div>
+            <div data-day="6" style="--r:5"><dt>Samedi</dt><dd><time class="tile" datetime="11:00">11<span class="vh">h</span></time><i aria-hidden="true">→</i><time class="tile" datetime="19:00">19<span class="vh">h</span></time></dd></div>
+            <div data-day="0" style="--r:6"><dt>Dimanche</dt><dd><span class="tile tile--shut">Fermé</span></dd></div>
+          </dl>
+          <p class="hours-note">Réservation en ligne à toute heure · retrait en boutique, 11b rue Saint-Esprit</p>
+        </section>
+      </div>
+
+      <main class="views" id="views">
+
+        <!-- ================= FOURNÉE (accueil) ================= -->
+        <section class="view view-fournee is-active" id="fournee" data-view="fournee" aria-labelledby="t-fournee">
+          <div class="fournee">
+            <a class="order-pill" id="order-pill" href="#panier" hidden></a>
+
+            <div class="factory" id="factory">
+              <div class="factory-stage" id="factory-stage" role="img"
+                aria-label="Animation : la vie d’un Kookie. Deux mains prélèvent la pâte crue, la roulent en boule, l’enfournent ; le cookie s’étale et dore, puis rejoint ses semblables sur les coupelles de la vitrine. Chaque cookie est unique."></div>
+              <p class="factory-hint" aria-hidden="true">Maintiens pour accélérer</p>
+            </div>
+
+            <div class="fournee-now">
+              <p class="eyebrow">En fabrication</p>
+              <a class="fab-now" id="fab-now" href="#carte/marbre">
+                <span id="fab-name">Le Marbré</span>
+                <span class="mono" id="fab-serial">n°0421</span>
+                <svg class="ico ico-sm"><use href="#i-arrow"/></svg>
+              </a>
+            </div>
+
+            <div class="def">
+              <h1 class="def-body" id="t-fournee">Cookies faits maison à Clermont-Ferrand. <em>Moelleux dedans, croustillants dehors.</em></h1>
+            </div>
+
+            <a class="drop" href="#carte/marbre" id="drop">
+              <span class="drop-cookie" data-cookie="marbre" aria-hidden="true"></span>
+              <span class="drop-text">
+                <span class="eyebrow">Kookie du mois · septembre</span>
+                <strong>Le Marbré</strong>
+                <span class="drop-desc">Chocolat, vanille, fleur de sel & pépites de chocolat blanc.</span>
+              </span>
+              <span class="drop-cta">Réserver</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ================= CARTE ================= -->
+        <section class="view view-carte" id="carte" data-view="carte" aria-labelledby="t-carte">
+          <div class="view-scroll" id="carte-scroll">
+            <header class="view-head">
+              <!-- le néon turquoise de leur vitrine, rue Saint-Esprit, sur sa plaque en acrylique :
+                   de vrais tubes en relief qui font de l'ombre (tube éteint dessous, tube allumé dessus) -->
+              <h2 class="neon-sign" id="t-carte">
+                <span class="vh" lang="en">Nice to eat you !</span>
+                <svg class="neon-svg" viewBox="0 0 975 323" aria-hidden="true" focusable="false">
+                  <defs>
+                    <!-- leur vrai néon, vectorisé depuis la photo de l'enseigne (tubes un peu épaissis) -->
+                    <path id="neon-tubes" fill-rule="evenodd" d="M426.5 23.2C428.4 23.9 430.3 24.5 431.8 25.9C433.5 27.6 431.3 25.8 432.7 27.7C432.1 31.7 430.8 33.1 429.3 36.9C425.3 46.8 420.4 56.2 416.5 66.2C414.9 70.3 412.8 74 412 78.2C412.3 78.3 412.4 78.8 412.7 78.9C413.7 79.4 422.2 79.2 423.7 79.1C425 78.9 426.2 78.3 427.6 78.2C430.9 77.8 434.3 78.4 437.6 78.1C439.6 77.9 441.3 76.8 443.4 77.3C445.9 78 447.8 81 447.8 83.5C447.8 86.1 447.6 82.9 447.3 85.4C445.4 87.3 448.2 85.3 446 86.9C442.1 89.9 436 88.8 431.4 88.9C429.7 88.9 428.2 89.7 426.5 89.8C423.2 90.2 419.8 89.6 416.5 89.9C415.2 90.1 414 90.7 412.6 90.8C411.1 91 409.1 90.5 407.6 91C407.3 91.1 407.1 91.5 406.8 91.5C403.4 101.9 401.7 112.8 399.1 123.4C398.8 124.7 399 126.1 398.7 127.4C398.2 130 397.3 132.6 396.9 135.2C396.7 136.8 397 138.5 396.8 140.2C395 150.4 393.9 160.5 393.9 170.9C393.9 173 394.4 174.7 394.7 176.8C395 178.1 394.8 179.4 394.9 180.8C395.6 185.6 398.2 191.8 402.7 194.2C403.9 194.8 405.2 195.2 406.6 194.9C414.4 192.9 416.7 181.9 418 175.2C418.2 173.8 418.2 172.6 418.7 171.3C419.8 168.7 424 166 424.5 164.5C425.1 162.3 423.1 156.8 424.7 153.6C426.5 150.1 430.5 149.1 434.1 149.1C439.8 149.2 444.4 153.7 450.4 153.4C452.2 153.3 454.5 153.3 456.3 153C462.1 151.8 468.4 146.6 474.5 148.3C477.5 149.2 473.4 148.1 476.2 149.4C478.3 158 474.4 159 467.2 161.5C459.8 164 453.5 165.5 445.7 164.9C443.7 164.7 441.8 164.1 439.9 164C446.2 173.8 453 179.3 451.8 192.4C451.1 200.4 445.4 204.9 437.7 204.9C436 204.9 434.4 204.8 432.9 204.1C429 202.2 427 197.7 424.5 194.5C424.2 194.7 423.8 194.6 423.6 194.8C422.8 195.3 422.4 196.5 421.8 197.2C419.6 199.8 416.7 203 413.5 204.4C396.6 211.5 385.4 196 383.2 181C382.7 177.7 383.1 174.2 383.1 170.9C383.1 165.6 382.8 160.2 383.1 154.9C383.2 153.5 383.8 152.4 384 151C384.3 149.4 384 147.7 384.1 146C384.2 144.6 384.8 143.5 385 142.1C385.3 140.5 385 138.8 385.2 137.2C385.5 134.5 386.4 131.9 387 129.4C387.2 128.1 387 126.7 387.2 125.4C387.5 122.8 388.3 120.1 388.9 117.6C389.2 116.3 389 114.9 389.3 113.6C390.2 109.1 391.1 104.5 392.4 100C392.8 98.8 394.4 94.2 394 93.2C393.9 92.9 393.4 92.8 393.4 92.5C390.5 92.7 387.5 92.7 384.5 92.9C381.8 93.2 379.4 94.7 376.7 93.4C372.8 91.5 371.8 86.1 375.6 83.6C379 81.4 382.5 82.7 386.3 82C387.6 81.7 388.8 81.2 390.2 81.1C392.2 81 395.2 81.7 397.1 80.9C397.4 80.8 397.6 80.4 397.9 80.3C400.7 74.4 403.1 68 405.5 61.9C406.8 58.5 408.8 55.3 410.3 52C412.4 47.4 414.1 42.7 416.2 38.2C418.2 34.1 420.3 25.8 424.6 23.7C427 22.5 424.1 24.1 426.5 23.2ZM82.7 208.1C82.9 207.9 83.3 208.1 83.6 208C85.4 206.7 89.6 198.4 90.8 196C92.3 193.1 94.4 190.4 96.1 187.5C99.3 182.1 102.2 176.5 105.4 171C107.8 166.7 110.8 162.6 113.2 158.3C116.3 152.7 119.3 147.1 122.5 141.7C124.1 139.2 125.8 136.7 127.3 134.1C132.9 123.9 138.5 113.7 144.8 103.9C147 100.6 148.5 96.8 150.7 93.5C155.1 86.7 161.1 72 167.5 67.7C171.9 64.7 179.3 63.8 183.2 68.3C191.4 78 184.5 96 182 106.8C179.2 119.1 176 131.4 173 143.6C172.1 147.5 171.2 151.4 170.2 155.3C169.8 156.6 169.9 157.9 169.5 159.2C167.1 167.2 165.4 175.3 163.7 183.4C163.5 184.4 163.1 185.3 162.9 186.3C162.6 189 163 191.6 163.5 194.1C166.5 193.7 162.2 195.2 165.4 194.1C170.4 192.4 174.9 185.8 178.2 181.8C186.1 172.2 192.1 161.5 197.6 150.5C199.6 146.6 202.6 139.5 206.8 137.6C208 137 209.4 137.2 210.7 137.1C216.1 136.4 214.8 135.6 220.1 138.3C221.6 144.1 220.2 141.4 219 145.7C218.4 147.9 218.2 150.3 217.7 152.5C216.3 158.2 212.1 167.2 214.2 172.9C215.4 176 213.9 171.8 215.4 174.5C218.4 174.2 214.3 175.5 217.3 174.6C223.8 172.7 227.2 165.5 231.2 160.7C232.6 159.2 237.3 155.8 237.8 154.7C238.3 153.5 238 152 238.3 150.7C238.9 147.2 242.6 140.1 245.4 137.8C254.1 130.6 265.7 135.4 270.1 144.8C271.9 148.9 272.9 154 272.9 158.4C272.9 160.5 273.3 166.6 274.9 168.1C275.1 168.3 275.5 168.2 275.7 168.5C276 168.3 276.4 168.3 276.6 168.2C277.5 167.7 281 162.8 282.5 161.4C283.5 160.6 285.2 160.4 285.8 159.3C287.2 157.1 286.8 153.9 287.6 151.5C290.5 142.5 295.1 131.6 305 128.4C306.9 127.8 309 128.1 311 128.1C322.3 128.1 325 139.3 323.8 148.7C323.6 150.4 322.7 151.8 322.1 153.3C318.3 163.8 307.7 174.7 299.7 182.1C300.9 184.8 298.6 181.4 300.2 184C305.5 192.3 314.5 186.8 320.2 182.6C325.3 178.8 335.7 165.2 339.1 159.5C342 154.5 344.8 146.9 351.6 146.4C354.3 146.2 350.9 146.6 353.5 146.8C355.3 148.7 356.3 150 355.8 152.9C355.4 155.5 345.8 169.4 343.7 172.4C339.7 178 335.6 183.9 330.5 188.5C329.5 189.4 328.3 190 327.2 190.8C323.5 194 319.6 197.4 314.6 198.6C313.3 199 312 198.8 310.7 199C309.7 199.2 308.8 199.7 307.7 199.7C306.7 199.6 305.8 199.1 304.8 199C303.8 198.8 302.8 198.9 301.8 198.8C297.6 198 293.2 194.1 290.8 190.6C288.5 187.3 287.2 183.4 286.3 179.6C286.2 178.9 286.3 178.2 286 177.6C285.9 177.3 285.5 177.2 285.4 176.9C285.1 177 284.8 176.8 284.5 176.9C281.6 177.8 277.5 185 274.9 187C267.8 192.6 261.1 197.6 251.5 195.1C247.1 193.9 244 191.7 241.1 188C237.3 183.3 237.4 177.5 236.3 176.1C236.1 175.9 235.8 175.8 235.6 175.5C235.3 175.7 234.9 175.6 234.6 175.7C232.1 176.7 229.8 180.8 227.3 182.4C219.5 187.3 209.8 187.8 204.5 179.2C202.5 176 202.5 171 201.8 169.7C201.6 169.4 201.2 169.3 201.1 169C196.5 175.5 191.7 183.4 186.8 189.3C180.7 196.7 173.6 206 163.2 205.9C159.3 205.9 156.2 203.9 153.9 200.9C152 198.2 152.4 195.3 151.5 192.3C151.2 191 152 184.4 152.2 182.5C152.3 181.5 152.7 180.6 152.9 179.6C153.2 178.3 153 176.9 153.3 175.6C154.5 169.4 156.6 163.4 158 157.2C161.6 141.7 165.8 126.3 169.3 110.7C170 107.5 171.4 104.3 172 101.1C172.8 96.9 173.4 92.6 174.3 88.4C174.9 86.1 175.9 80.7 175 78.5C174.9 78.2 174.5 78.1 174.4 77.8C174.1 78 173.7 77.7 173.4 77.9C171.8 78.5 168.6 85.3 167.6 87.1C164.4 92.5 161.2 98 158 103.4C156.6 105.7 155.7 108.3 154.3 110.5C149.5 118.1 145.1 125.9 140.7 133.8C138.6 137.6 135.9 141 133.8 144.8C131.7 148.5 129.7 152.3 127.3 156C126.2 157.6 125.5 159.6 124.5 161.3C120.7 167.5 117.2 174 113.2 180.1C112.1 181.8 111.4 183.7 110.4 185.4C108.3 188.8 106.1 192.1 104.3 195.7C101.4 201.4 91.1 219.8 87.2 223.8C84.3 226.9 81.7 227.9 77.5 227.9C76.2 227.9 74.8 227.9 73.6 227.3C70.5 225.8 68.3 220.3 68.3 217C68.3 215.7 69 214.5 69.1 213.1C69.6 202.3 75.3 190 77.9 179.4C80.6 168.7 83.9 158.3 86.9 147.7C88.6 141.6 89.7 135.4 91.4 129.3C93.1 122.6 95.8 115.9 97 109.1C97.8 104.5 98.9 100 99.9 95.5C100.2 94.2 100 92.8 100.3 91.5C101.5 85.9 102.3 80.4 103.2 74.8C104.3 69 104.9 63 106 57.2C106.4 55.2 105.9 53.2 106.2 51.2C106.5 48.8 107.3 46.8 107.1 44.3C106.7 41.3 105.9 38.4 104.3 36C103.2 35.8 102.8 35.2 101.5 35.5C94.9 37.3 84.2 51.9 80.3 57.6C79.5 58.7 78.4 59.5 77.6 60.5C75.8 62.8 74.1 65.4 72.4 67.8C69.8 71.3 67.6 75.1 65.2 78.7C63.9 80.6 62.3 82.3 61.1 84.3C54.7 94.4 44.6 109.9 40.6 120.8C37.9 128.3 33 138.6 33.9 146.7C34.9 154.8 40.7 156.3 47.7 156.1C49.7 156 51.7 154.8 53.6 155.8C56.2 157.2 57 159.8 57.6 162.3C56.3 164.6 58.6 161.9 56.9 164.1C55.2 166.2 51.7 168.2 49 167.8C47.7 167.6 46.5 167 45.1 166.9C43.1 166.8 41.1 167.1 39.1 166.8C30.5 165.6 23.2 157.7 23.1 149C23.1 145.4 22.7 141.5 23.2 138C23.6 135.7 24.5 133.5 25 131.2C28.7 112.3 40.7 95.8 50.9 79.8C54.1 74.7 57.5 69.8 60.8 64.9C63.3 61.3 65.4 57.4 68 54C69.6 52 71.5 49.9 72.9 47.8C74.2 45.8 75.9 44.3 77.4 42.4C83.7 34.5 95.5 20.4 107.3 24.6C112.8 26.5 116.1 31.7 117.6 37.1C118.4 40.1 118.3 52.9 117.8 56.1C117.6 57.1 117.1 58 117 59C116.7 60.7 117 62.3 116.8 64C116.3 66.9 115.6 69.8 115 72.8C113.6 79.9 113.2 87.3 111.7 94.4C110.7 99.3 109.6 104.1 108.8 109C108.4 111.3 107.5 113.5 107 115.8C105.4 122.9 103.4 130 101.2 137C100.2 140.4 99.6 144.1 98.7 147.6C97.7 151.5 96.3 155.3 95.2 159.1C94.8 160.4 94.9 161.8 94.6 163C92.8 169.1 90.9 175.2 89.2 181.2C88.5 183.5 88.2 185.8 87.6 188C86.4 191.8 82.1 204.1 82.4 207.3C82.4 207.6 82.7 207.8 82.7 208.1ZM655 78C655.3 78 655.5 78.4 655.8 78.5C656.1 78.5 663.9 78.2 664.8 78.1C666.1 77.9 667.3 77.3 668.6 77.2C670.6 77 672.6 77.3 674.6 77.1C678.1 76.7 680.9 75.7 684.5 76.2C689 76.7 690.4 83.9 686.5 86.3C684.7 87.3 682.5 86.6 680.6 87.1C676.9 87.9 674.5 87.5 671.7 88C670.4 88.3 669.2 88.8 667.8 88.9C665.8 89 663.8 88.7 661.8 89C660.8 89.2 659.9 89.7 658.9 89.8C656.4 90.2 653.5 89.7 651.1 91.2C649.6 92.3 649.2 95.9 648.9 97.7C648.4 100.3 647.7 102.9 647.1 105.4C646.3 108.6 646.3 112.1 645.7 115.3C644.7 120.8 643.9 126.4 643 132C642.6 134.3 643.1 136.6 642.8 138.9C642.6 140.3 642 141.5 641.9 142.8C641.6 148.1 641.9 153.5 641.9 158.8C641.9 162.1 641.5 165.6 642 168.8C642.4 171.8 643.1 174.7 643.7 177.6C644 178.9 643.8 180.3 644.1 181.6C645.3 186.6 647.8 196.4 652 199.7C656 202.9 661.5 199.6 663.5 195.6C667.6 187.7 668.8 183.8 670.2 174.9C670.4 174 671 173 671 172C671 171 670.3 170.1 670.3 169.1C670.3 166.6 670.5 169.7 670.9 167.2C675.3 163.4 677.6 163.6 682.1 167.2C682.7 169.7 682.5 166.5 682.8 169.1C682.9 170.4 681.3 178.1 681 179.8C680.1 184.7 679.1 189.7 677.4 194.4C673.3 205.5 661.8 216.8 649.2 211.2C642.9 208.5 636.8 198.9 635.3 192.4C635 191.2 633.1 182.2 632.7 181.8C632.4 181.6 631.9 181.9 631.8 181.6C629.6 184 627.7 186.8 625.1 188.9C617.9 194.6 608.4 195.8 601.7 188.8C599.7 186.7 598.6 183.6 597.3 181C597.2 181.3 596.8 181.3 596.6 181.5C594.7 183.7 594.3 188.9 592.8 191.8C589 198.7 580.5 207 571.9 203.1C569.4 202 567.4 200.4 565.3 198.8C565 199 564.6 198.8 564.3 198.9C562 199.9 559.2 204.2 557.1 205.9C550.9 210.9 542.5 213.3 534.6 211.7C529.2 210.6 524.8 207.3 521.7 203C519.5 199.8 517.7 197.2 516.6 193.4C516.2 192.1 516.2 190.8 516.1 189.4C515.9 187.8 515.2 186.3 515.1 184.6C514.7 172.6 518.4 155.3 526.1 145.9C531.3 139.5 538.4 137.5 545.4 142C546.3 142.6 547.1 143 547.8 143.8C551.9 148.6 551.9 155.1 551.9 160.9C551.8 170.9 542 184.8 536.2 192.8C535.4 193.9 532.1 195.9 531.9 196.8C531.8 197.1 532.2 197.5 532 197.8C540.2 203.7 546.4 200.6 552.9 194C554.5 192.5 556.6 190.9 557.7 188.9C558.2 188.1 558.3 187.1 558.9 186.2C559.8 184.9 561.5 184 562 182.3C562.3 181.1 562 179.6 562.2 178.4C562.4 176.7 562.9 175.1 563.3 173.5C566.3 161.3 574.2 143 585.8 137C589 135.2 591.7 135.1 595.4 135.1C606.4 135.1 610.2 139.7 616.7 147.6C619.1 150.5 623.5 155.6 623.8 159.4C624.3 165.7 617.5 165.2 613.4 164.2C609.8 157.7 605.6 148 597.4 146C590.8 144.5 585.4 150.5 582.8 155.8C578.8 163.7 575.2 171.3 573.8 180C573.5 181.7 572.7 183.1 573 184.9C573.3 187.6 574.3 190 575.8 192.2C578.5 191.4 575 193.3 577.7 192C585.6 187.9 586.1 167.4 591.5 161.5C596.4 156.1 605 157.7 607.5 164.8C608.8 168.6 608.3 177.8 609.9 180.5C611.4 182.9 609.5 179.6 611.4 181.8C612.4 181.8 613.2 182.3 614.3 182C619.1 180.6 621.2 175.8 623.9 172.2C624.5 171.4 625.3 170.7 625.8 169.8C626.2 168.9 626.4 167.9 627 167.1C628.1 165.5 630.2 164.5 630.9 162.6C632 159.7 630.7 143.3 631.2 138.6C631.3 137.3 631.9 136.1 632.1 134.7C632.3 132.8 632 130.7 632.1 128.7C632.2 127.4 632.9 126.2 633 124.8C633.2 123.5 633 122.2 633.2 120.9C634 116.6 634.6 112.4 635.2 108.1C635.5 105.7 638.3 95.9 638 94.4C638 94.1 637.6 93.9 637.6 93.6C637.3 93.5 637.1 93.1 636.8 93C633.5 91.8 623.1 96 619.1 94.5C615.2 93.1 615.1 86.7 618.5 84.7C620.4 83.7 628 82.2 630.2 82.1C631.8 82.1 633.5 82.3 635.2 82C637.1 81.6 639 81 641 80.7C645.9 71.7 649.5 55.3 653.5 44.9C654.6 41.8 656.2 38.8 657.2 35.7C657.9 33.5 658.4 29.9 660 28.2C662.3 25.4 666.6 26.2 668.8 28.8C671.4 31.9 667.7 38.7 666.6 42C664.9 47 663.2 52.1 661.5 57.1C659.2 63.9 655.5 70.8 655 78ZM922.2 190.5C924.2 185.1 925.7 186.6 926.8 184.4C927.8 182.5 927.9 173.9 928.2 171.5C928.3 170.2 928.9 169 929.1 167.7C929.5 163.4 929.8 159.1 930.1 154.8C930.2 153.4 930.8 152.2 931 150.9C931.3 148.9 930.9 146.9 931.2 144.9C931.4 143.9 931.9 143 932 142C932.3 140 931.9 138 932.2 136C932.4 135 932.8 134.1 933 133.1C933.2 131.8 933 130.5 933.2 129.1C933.3 128.1 933.8 127.2 934 126.3C934.3 124.6 934 122.9 934.2 121.3C934.3 120.2 934.7 119.4 935 118.4C935.2 117.1 935 115.7 935.2 114.4C935.3 113 935.9 111.8 936.1 110.5C936.2 108.8 936 107.2 936.2 105.5C936.5 101.9 937.6 98.3 938.1 94.7C938.2 93.9 939 84.9 939 84.9C938.2 80.8 936.5 83.4 937.8 77.4C942.2 75.2 949.4 73.7 950.7 80.6C951 82.3 950.1 83.8 949.9 85.5C949.8 87.5 950 89.5 949.8 91.5C949.7 92.8 949.1 94 948.9 95.4C948.8 96.7 949 98 948.7 99.4C948.5 100.3 948.1 101.2 947.9 102.2C947.7 103.9 948 105.6 947.7 107.2C947.6 108.2 947.1 109.1 947 110.1C946.7 111.8 947 113.5 946.8 115.1C946.6 116.1 946.1 117 946 118C945.4 121.9 945.4 125.9 944.8 129.9C944.7 130.9 944.2 131.8 944 132.8C943.7 134.4 944 136.1 943.8 137.8C943.7 138.8 943.2 139.7 943 140.7C942.7 142.3 943 144 942.8 145.6C942.7 147 942 148.2 941.9 149.5C941.8 151.2 942 152.9 941.8 154.5C941.7 155.9 941.1 157.1 940.9 158.4C940.7 160.4 941 162.4 940.8 164.4C940.7 165.8 940.1 167 939.9 168.3C939.7 170 940 171.6 939.7 173.3C939.5 174.3 939.1 175.2 939 176.2C938.6 178.8 939.2 181.5 938.8 184.2C938.6 185.2 938.1 186.1 938 187.1C937.8 188.4 938 189.7 937.5 191C936.2 195 933.9 194.3 930.5 195.1C925.6 196.2 923.9 195 922.2 190.5ZM229.8 102.6C228.9 104.6 230.4 102.6 229.2 104.5C228.5 105.7 227.2 106.1 226.5 107.4C225.6 109.1 221.3 122.8 221.1 124.6C221 125.6 221.5 126.5 221.6 127.5C221.9 130.3 221.4 126.7 221.3 129.4C220.5 130.2 220.2 131 219.1 131.4C214.8 133.3 208.7 130.5 209.2 125.3C209.5 122.5 215.9 101.3 217.3 99.6C220.1 96.4 223.8 96.6 227.1 98.8C228 99.4 228.8 99.7 229.4 100.7C230.5 102.9 229 100.4 229.8 102.6ZM725.2 293.7C726.3 290.7 725.8 292 727.6 289.6C728.8 288.2 729.2 285.8 729.8 284C732.9 273.9 734.5 263.2 737.4 253C741.3 239.6 744.1 225.9 747.4 212.3C750 201.3 752.8 190.4 755.3 179.4C757.1 171.9 759 164.6 760.2 157C760.8 153 762 149.3 762.1 145.2C762.2 142.7 764.3 137.7 762.7 135.4C762.6 135.2 762.1 135.1 762 134.8C760.6 136.5 759.1 138.4 758.1 140.5C754.8 147.9 751.9 159 749.6 167C747.9 172.5 745.8 177.7 744.2 183.2C742.5 188.9 738.8 199.6 734.3 203.7C728.8 208.7 719.3 209.1 714.8 202.7C713 200.1 712.4 197.3 711.6 194.4C710.2 189.9 711.1 183.1 711.1 178.4C711.1 174.8 710.8 171 711.2 167.4C711.3 166.1 711.9 164.9 712.1 163.5C712.3 161.2 711.9 158.8 712.2 156.5C712.3 155.2 712.9 154 713.1 152.6C713.3 150.7 713 148.6 713.2 146.6C713.3 145.3 713.9 144.1 714 142.8C714.2 140.9 712.6 139.9 712.3 138.2C711.8 135.6 712.6 138.8 712.4 136.2C714.5 134 711.1 136.5 713.6 134.7C717 132.1 723 132.6 724.6 137.1C725.2 139 724.9 141.2 724.9 143.1C724.9 149.3 724.1 155.8 723 161.9C722.5 164.8 723.2 167.9 722.8 170.9C722.7 171.9 722.2 172.8 722 173.7C720.9 179.3 721.9 190.2 724.5 195.2C727.2 193.8 723.7 196.7 726.3 194.7C730.2 191.6 733.1 180.3 734.3 175.5C735.7 169.7 738.5 164.2 739.9 158.4C742 150.2 744.6 141.5 748.4 133.9C751.5 127.6 755 123.1 762.4 123.1C767 123.1 768.8 124.2 771.7 127.7C774.5 131.1 774.6 144.9 773.7 149.3C773.2 152.2 772.4 155.1 772 158.1C770.6 166.8 768.6 175.7 766.1 184.3C765.4 186.8 765.3 189.6 764.5 192.1C763.7 194.9 762.6 197.8 762 200.7C761.3 204.3 760.6 207.9 759.7 211.4C758.6 215.9 756.8 220.3 756 224.9C754.8 231.7 753 238.6 751.1 245.3C747.9 256.8 745.6 268.6 742.2 280.1C740.8 284.7 740.4 290.1 738.7 294.6C736.6 299.8 728.7 300.6 725.8 295.6C724.5 293.5 726.2 296 725.2 293.7ZM824.7 186.2C827.8 185.5 823.6 187.2 826.7 186C835.8 182.3 833.3 163.1 838.7 157.3C839.7 156.2 840.9 154.7 842.3 153.9C843.4 153.1 844.8 153.1 846.1 153.1C850.2 153.1 853.1 154.8 854.5 158.8C856.5 164.6 855.4 170.6 856.7 176.5C856.9 177.5 856.8 178.5 857.1 179.5C857.6 180.8 858.6 181.6 859.5 182.6C861.6 182.3 863.2 182 865 180.7C868.6 178.2 873.8 166.6 874.3 162.2C874.5 160.4 873.2 159.2 873.2 157.4C873.3 154.9 873.4 158 873.7 155.5C874.5 154.8 874.8 154 875.9 153.5C879.8 151.9 888 153.2 887.8 158.7C887.6 164.5 880.6 179.5 877.3 184.5C875.8 186.8 873.2 189.3 871 190.9C867.2 194 859.3 195.1 854.7 193.5C852.5 192.7 850.7 191 849.2 189.2C847.4 187 846.4 183.8 845.2 181.2C842.9 183.3 846.1 178.7 843.7 182.1C843 183.2 842.8 184.6 842.2 185.8C840.7 189.2 837.9 192.9 834.8 195.1C833.1 196.4 831.2 196.6 829.2 197.2C821.6 199.3 813.5 194.4 811.4 186.8C808.2 175.5 811.9 167.1 813 156.2C812.7 156.3 812.4 155.9 812.1 155.9C810.9 155.9 800.6 162.6 799.4 163.7C797.3 165.6 800 163.3 798.2 165.3C798.3 168.1 797.5 164.5 798 167.3C798.7 170.4 801.1 172.4 802.6 175C804.6 178.3 806.3 182.2 807.5 185.9C808 187.5 807.9 189.2 807.9 190.9C807.9 192.8 808.1 195 807.6 196.9C805 205.5 796.1 209.8 787.8 206.8C782.5 205 778.8 197.9 776.5 193.3C773.1 186.5 772.1 181.6 772.1 174.1C772.1 171.8 771.9 169.4 772.1 167.1C772.7 160.7 777.4 153.4 781.3 148.6C783.2 146.3 784.7 143.5 787.3 141.9C790.9 139.5 795.8 143 795.9 147C795.9 149.4 794.1 151.2 792.8 153C793.1 152.9 793.4 153.3 793.7 153.2C794.7 153.2 808 144.4 809.8 143.2C814.5 139.8 821.5 134.7 826.7 139.7C828.9 141.8 829 144 828.9 147C828.8 149.3 827.7 151.5 827 153.7C824.7 160.6 819.9 174.9 822.2 182C822.8 183.6 823.8 184.8 824.7 186.2ZM311.3 139C312.1 140.2 312.9 140.8 313.1 142.4C313.6 149 307.1 157.1 303.2 161.8C301.8 163.4 300.7 166.3 298.6 167.1C298.3 167.3 297.9 167.1 297.7 167.2C297.6 166.9 297.1 166.8 297 166.6C296.1 164.6 297.2 161.5 297.7 159.6C299.1 153.3 301.4 140 309.4 138.7C312.2 138.2 308.5 139 311.3 139ZM254.4 145.7C257 146.3 253.7 144.8 256.3 145.9C260 147.4 261.6 155.6 262.1 159.2C262.5 162.9 261 169 262.6 172.2C264 175 266.9 173.9 268.7 175.1C269 175.2 269 175.7 269.3 175.8C269.1 176.1 269.2 176.5 269 176.8C268.1 178.5 266 179.7 264.5 180.7C260.2 183.4 254.2 186.9 250.4 181.3C245.7 174.5 247.5 154.2 252 147.4C252.7 146.3 253.5 146.3 254.4 145.7ZM538.7 151.3C539.9 153.1 540.9 154.1 541.1 156.6C541.5 162.1 536 173.4 532.4 177.6C531.5 178.7 529.3 182.9 528.2 183.2C527.9 183.3 527.5 182.9 527.3 183.1C526.9 179.9 526.5 176.3 527 173.1C527.8 167.3 531.6 154.6 536.8 151.5C539.9 149.7 535.6 152.2 538.7 151.3ZM784.8 167.2C784.9 167.4 785.3 167 785.5 167.2C786.2 167.7 787.5 173.5 788.3 174.8C790.9 179.5 799.1 189.2 795.7 194.8C794.2 197.4 796 194 794.2 196.1C791.9 195.5 794.6 197.3 792.3 196.1C788.4 194.1 784.8 184.3 784 180.2C783.3 176.1 783.6 171 784.8 167.2ZM436.6 180.2C436.8 180.4 437.1 180.2 437.3 180.4C439.7 182.2 442 190.1 439.9 192.7C438 195.1 440.4 191.8 438.2 193.5C436.1 190.9 438.5 195.2 436.8 192.2C435.7 190.2 435.3 183.2 436.1 181.1C436.2 180.8 436.5 180.5 436.6 180.2ZM931.9 240.9C928.3 242.2 923.9 244.1 920.8 240.8C919.6 239.6 919 238.1 919.2 236.3C919.5 234.1 921.1 233.9 921.9 232.3C923.4 229.1 922.8 225.6 923.2 222.3C923.3 221 924 219.8 924.1 218.4C924.2 216.4 924.6 213.3 923.9 211.4C923 208.8 921 206.8 923.1 204C926.4 199.5 935.1 203.6 935.8 208.3C936.3 211.6 936.4 216.1 935.7 219.3C935.5 220.3 935.1 221.3 934.9 222.3C934.7 224.3 935 226.3 934.9 228.3C934.6 231.8 933.1 237.6 931.9 240.9Z"/>
+                    <path id="neon-plate" d="M128.3 85.6C132.6 87 137 88.7 141.7 86.5C148.3 83.4 163 51.1 177.6 54.7C182.1 55.8 185.5 60 188.6 63.1C191.4 65.9 194.4 68.7 196.3 72.3C199.1 77.4 198.6 84.1 200.2 89.6C210.1 92.8 213.6 90.5 222.8 86.8C227.5 88.8 230.3 90.8 234.1 94.6C242.9 103.4 237.2 109.3 240 120.3C247.1 123 253.2 121.4 259.3 124C269.8 128.4 270.1 136 284.5 133.1C295.6 130.8 299.4 113.9 312.9 117.1C321.3 119.1 325.7 129.2 332.7 133.6C338 136.9 344.6 134.8 350.4 135.8C354.4 136.5 357.6 139 361.7 139.4C365.4 139.6 368.1 138.9 371.5 138.2C374.6 133.1 371.5 140.7 373.9 135C376.7 128.6 378.3 109.7 375 103.5C371.9 97.5 366.3 94.3 363.2 87.8C366.3 81.9 371.5 75 377.8 71.9C382.7 69.5 388.7 71.3 392.2 66.2C405 47.4 404.3 26.2 426.1 13.6C431.1 15.3 433.6 17.1 437.5 21C451 34.7 429.4 45.6 436.2 62C436.4 62.4 452.1 73 457.5 82.1C450.3 104 434 98.4 416.6 103C411.9 111.5 408.4 125.9 410.9 135.9C412.5 141.9 410.6 133.8 413 139.2C415.1 139.6 416.5 140.4 418.8 140.4C424.2 140.6 429.3 137.7 434.5 138.1C442.1 138.6 448.2 140.8 456.3 140.4C461.9 140.1 468.4 135.9 473.8 137.8C479.8 139.9 484.4 147 487.3 152.1C485.7 157.1 489 151 486.7 155.9C482.7 164.3 466.5 172.2 464.6 175.8C461.9 180.9 464.2 188.1 462.7 193.6C460.6 201 451.9 208.6 446 213.2C439.2 218.4 430.6 214.5 422.8 214.5C415.6 214.6 408.1 218.7 401.1 216.7C393.2 214.5 377.8 197.7 374.6 190.2C372.2 184.7 371.6 178.5 369.4 173.1C365 171.9 360.5 170.4 355.9 172.7C348.1 176.5 331.6 204.3 314.5 209.6C298.2 214.7 297.1 201.5 285.7 199.8C270.5 197.5 266.1 207.8 255.2 207C247.6 206.5 244.7 199.7 238.2 197.4C231.3 194.9 223.3 197.4 216.2 197.1C210.1 196.9 204.9 194.2 198.5 194.6C184.2 195.4 177 219.5 162.4 216.9C156.7 215.9 144.6 203.4 142 198.3C139.2 193 140.3 189.9 136.7 183.6C131.6 182.7 125.7 181.2 121.6 185.5C118.9 188.3 117.2 192.3 115.3 195.7C106.8 210.5 98.6 226.8 84.1 236.9C74.7 243.5 58.2 226.1 57.6 217C56.6 204 63.7 196 60 181.7C51 178.2 39.7 180.2 31.4 174.3C24.8 169.5 15.8 161.4 12.9 153.6C3.6 128.2 38.1 82.4 51.8 62.1C62 46.9 74.2 34.2 87.1 21.4C92.7 15.9 100.2 10.3 108.3 14.3C112.4 16.4 115.7 20.2 118.9 23.4C140.5 45.1 121.3 62.2 128.3 85.6ZM663.5 16.6C668.3 18.4 670.9 20.3 674.7 24.2C686.1 35.7 673.5 43.6 676.5 61.6C686.4 67.5 694.7 70.3 698.9 82.2C687.5 102.6 678.5 95.9 660.7 102.5C655 115.5 651.5 141.6 655 155.3C668.8 160.5 666 154.9 675.9 154.2C683.3 153.6 683.9 160.7 698.8 157C706.5 140.6 694.7 135 717.2 122.8C725 125.1 733.4 130.3 742 126.3C749.7 122.7 754.7 109.3 764.9 112.3C772.4 114.6 776.4 123.9 783 127.8C786.3 129.7 790.8 130.6 794.4 131.6C807.2 135.4 817.3 125.5 823.2 127.4C828.8 129.1 832.3 135.6 836.8 139C840.3 141.6 844.3 141 848.2 142.4C850.8 143.3 852.7 145.3 855.1 146.4C864 150.2 872 145.2 879.8 142.1C885.6 144.3 897.1 152.2 898.1 159.1C900.1 172.7 880.3 193.8 870.6 201.6C861.3 209 850.2 201.9 839.6 203.9C835 204.8 831.4 208.1 826.7 209C820.9 210 814.3 208.3 808.8 210.4C803.7 212.3 800.9 217.7 795.3 218.8C786.3 220.6 783.1 213.8 770.1 218.7C762.3 236.4 756.8 281 749.6 293.8C745.9 300.5 738.7 306.4 732 309.4C726.5 306.9 718.2 301.6 715.9 295.2C714.2 290.2 719.1 281.1 720.4 276C724.5 259.6 733.4 237.8 728.9 221.5C725.5 219.8 721.3 218.4 718.2 216.2C708.2 209.1 703 196.3 688.4 200C676.7 203 670.2 224.9 655.1 223.7C644.5 222.9 640.2 210.6 631.6 206C627.1 203.6 601.8 204 595.8 204.7C589.3 205.5 586.4 211.5 580.8 214C574.6 216.8 567.4 214.8 560.9 215.8C550.2 217.6 545.5 226.9 532.7 222.1C527 220 522.8 215.3 518.6 211.1C514 206.5 508.9 201.7 506.3 195.5C498.9 178 506.8 154.8 519.5 142C524.1 137.3 529.7 129.6 536.7 128.8C546.4 127.7 549.8 139.3 561.5 139.5C577.5 139.7 577.6 127.4 590.5 124.2C600.7 121.6 608.3 127.5 619.8 123.5C625.5 103.1 612.7 104.5 605.9 89.3C608.9 83.3 614 76.7 620.3 73.3C624.9 70.8 631.4 71.8 634.5 66.9C644.9 50 639.7 29.2 663.5 16.6ZM943.5 64.9C966.4 73.2 961.4 88.7 958.9 108C955.7 133.2 953.4 158.5 950.1 183.6C949.6 187.6 948.3 191.4 947.8 195.4C946.9 202.7 947.9 210.1 947.2 217.4C945.8 233.4 943.3 249.1 925.2 253.1C901.5 240.5 912.6 234 911.4 212.8C911 205.8 909 197.6 911.3 190.8C912.9 186.2 915.7 182.9 916.3 177.9C918.9 155.3 921.9 132.8 924.4 110.2C926.5 90.8 920.7 73.2 943.5 64.9Z"/>
+                    <!-- plaque en acrylique : claire, décollée du mur -->
+                    <filter id="neon-plate-f" x="-5%" y="-15%" width="110%" height="135%" color-interpolation-filters="sRGB">
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="b"/>
+                      <feOffset in="b" dx="6" dy="16" result="o"/>
+                      <feFlood flood-color="#2a0f22" flood-opacity="0.16"/>
+                      <feComposite in2="o" operator="in" result="shadow"/>
+                      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <!-- tube éteint : verre pâle en relief, ombre portée sur la plaque -->
+                    <filter id="neon-off" x="-4%" y="-12%" width="108%" height="130%" color-interpolation-filters="sRGB">
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="6.5" result="sb"/>
+                      <feOffset in="sb" dx="8" dy="18" result="so"/>
+                      <feFlood flood-color="#10232b" flood-opacity="0.34"/>
+                      <feComposite in2="so" operator="in" result="shadow"/>
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="3.6" result="bump"/>
+                      <feDiffuseLighting in="bump" surfaceScale="3.4" diffuseConstant="1.1" lighting-color="#fff" result="diff">
+                        <feDistantLight azimuth="235" elevation="55"/>
+                      </feDiffuseLighting>
+                      <feComposite in="SourceGraphic" in2="diff" operator="arithmetic" k1="0.6" k2="0.45" result="body"/>
+                      <feSpecularLighting in="bump" surfaceScale="3.8" specularConstant="1.15" specularExponent="22" lighting-color="#fff" result="spec">
+                        <feDistantLight azimuth="235" elevation="55"/>
+                      </feSpecularLighting>
+                      <feComposite in="spec" in2="SourceAlpha" operator="in" result="gloss"/>
+                      <feMerge><feMergeNode in="shadow"/><feMergeNode in="body"/><feMergeNode in="gloss"/></feMerge>
+                    </filter>
+                    <!-- tube allumé : cœur clair, verre turquoise en relief, halo -->
+                    <filter id="neon-on" x="-8%" y="-25%" width="116%" height="150%" color-interpolation-filters="sRGB">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="g1"/>
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="26" result="g2"/>
+                      <feColorMatrix in="g2" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.75 0" result="halo"/>
+                      <feGaussianBlur in="SourceAlpha" stdDeviation="3.6" result="bump"/>
+                      <feDiffuseLighting in="bump" surfaceScale="3.4" diffuseConstant="1.1" lighting-color="#fff" result="diff">
+                        <feDistantLight azimuth="235" elevation="55"/>
+                      </feDiffuseLighting>
+                      <feComposite in="SourceGraphic" in2="diff" operator="arithmetic" k1="0.42" k2="0.72" result="body"/>
+                      <feSpecularLighting in="bump" surfaceScale="3.8" specularConstant="1.25" specularExponent="22" lighting-color="#fff" result="spec">
+                        <feDistantLight azimuth="235" elevation="55"/>
+                      </feSpecularLighting>
+                      <feComposite in="spec" in2="SourceAlpha" operator="in" result="gloss"/>
+                      <feMerge><feMergeNode in="halo"/><feMergeNode in="g1"/><feMergeNode in="body"/><feMergeNode in="gloss"/></feMerge>
+                    </filter>
+                  </defs>
+                  <use class="neon-plate" href="#neon-plate" filter="url(#neon-plate-f)"/>
+                  <use class="neon-off" href="#neon-tubes" filter="url(#neon-off)"/>
+                  <use class="neon-on" href="#neon-tubes" filter="url(#neon-on)"/>
+                </svg>
+              </h2>
+              <p class="eyebrow carte-sub">La vitrine · tout est fait maison</p>
+              <div class="chips" id="chips" role="group" aria-label="Filtrer la carte">
+                <button class="chip is-on" type="button" data-filter="all" data-sfx="chip" data-sfx-i="0" aria-pressed="true">Tout</button>
+                <button class="chip" type="button" data-filter="mois" data-sfx="chip" data-sfx-i="1" aria-pressed="false">Du mois</button>
+                <button class="chip" type="button" data-filter="signature" data-sfx="chip" data-sfx-i="2" aria-pressed="false">Signatures</button>
+                <button class="chip" type="button" data-filter="format" data-sfx="chip" data-sfx-i="3" aria-pressed="false">Formats</button>
+              </div>
+              <p class="carte-hint" aria-hidden="true"><svg class="ico ico-sm"><use href="#i-turn"/></svg>Attrape un cookie pour le faire tourner · tape pour croquer</p>
+            </header>
+
+            <!-- La carte (source de vérité produits : le JS lit ces fiches) -->
+            <ul class="grid" id="grid">
+              <li class="product is-star" data-id="marbre" data-look="marbre" data-price="3.50" data-cat="mois signature"
+                data-phon="[maʁ.bʁe]" data-kind="n. m."
+                data-def="Cookie qui refuse de choisir entre chocolat et vanille. Le goûter parfait de la rentrée."
+                data-tags="Chocolat · Vanille · Fleur de sel · Chocolat blanc">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <span class="product-badge">Du mois</span>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Le Marbré</button></h3>
+                  <p class="product-desc">Chocolat, vanille, fleur de sel & pépites de chocolat blanc.</p>
+                  <p class="product-price"><data value="3.50">3,50 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="classique" data-look="classique" data-price="3.00" data-cat="signature"
+                data-phon="[kla.sik]" data-kind="n. m."
+                data-def="Le point de départ. Celui qu’on recommande à ceux qui n’ont encore jamais goûté."
+                data-tags="Beurre · Chocolat noir">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Le Classique</button></h3>
+                  <p class="product-desc">Pâte beurrée, grosses pépites de chocolat noir.</p>
+                  <p class="product-price"><data value="3.00">3,00 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="triple" data-look="triple" data-price="3.50" data-cat="signature"
+                data-phon="[tʁi.pl‿ʃɔk]" data-kind="n. m. inv."
+                data-def="Pour les jours où un seul chocolat ne suffit clairement pas."
+                data-tags="Cacao · Noir · Lait · Blanc">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Triple Choc</button></h3>
+                  <p class="product-desc">Pâte cacao, chocolat noir, au lait & blanc.</p>
+                  <p class="product-price"><data value="3.50">3,50 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="country" data-look="country" data-price="3.80" data-cat="signature"
+                data-phon="[kun.tri]" data-kind="n. m."
+                data-def="Cookie épais, doré, avec un bloc de Kinder Country planté dedans. Goûter d’enfance, version grand format."
+                data-tags="Kinder Country · Chocolat au lait">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Le Country</button></h3>
+                  <p class="product-desc">Pâte dorée, gros morceau de Kinder Country planté dessus.</p>
+                  <p class="product-price"><data value="3.80">3,80 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="bueno" data-look="bueno" data-price="3.80" data-cat="signature"
+                data-phon="[bwe.no]" data-kind="n. m."
+                data-def="Cookie cacao nappé de crème noisette, couronné d’un morceau de Kinder Bueno. Se déguste lentement (en théorie)."
+                data-tags="Cacao · Crème noisette · Kinder Bueno">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Le Bueno</button></h3>
+                  <p class="product-desc">Pâte cacao, crème noisette et morceau de Kinder Bueno.</p>
+                  <p class="product-price"><data value="3.80">3,80 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="pistache" data-look="pistache" data-price="3.80" data-cat="signature"
+                data-phon="[pis.taʃ]" data-kind="n. f."
+                data-def="Pâte dorée, cœur de pâte de pistache bien généreux, éclats torréfiés et un voile de sucre glace."
+                data-tags="Pâte de pistache · Éclats · Sucre glace">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Pistache</button></h3>
+                  <p class="product-desc">Nappage généreux de pâte de pistache, éclats de pistache.</p>
+                  <p class="product-price"><data value="3.80">3,80 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="xxl" data-look="xxl" data-price="18.00" data-cat="format"
+                data-phon="[iks.iks.ɛl]" data-kind="n. m."
+                data-def="Cookie de taille déraisonnable. Se partage à six ou huit. Ou pas."
+                data-tags="À partager · 6 à 8 parts">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <span class="product-badge">Géant</span>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Kookie XXL</button></h3>
+                  <p class="product-desc">Le géant à partager, 6 à 8 parts.</p>
+                  <p class="product-price"><data value="18.00">18,00 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="stick" data-look="stick" data-price="2.50" data-cat="format"
+                data-phon="[stik]" data-kind="n. m."
+                data-def="Cookie en bâtonnet. Se tient d’une main, se trempe dans le café de l’autre."
+                data-tags="À grignoter · À tremper">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Kookies stick</button></h3>
+                  <p class="product-desc">Le format à grignoter, à tremper, à emporter.</p>
+                  <p class="product-price"><data value="2.50">2,50 €</data></p>
+                </article>
+              </li>
+              <li class="product" data-id="mini" data-look="mini" data-price="25.00" data-cat="format"
+                data-phon="[mi.ni]" data-kind="n. m. pl."
+                data-def="Cookies miniatures pour les grandes tablées : anniversaires, mariages, pots d’équipe."
+                data-tags="Sur commande · 48 h à l’avance"
+                data-variants="30|25.00,50|40.00,100|75.00" data-unit="mini kookies">
+                <article class="product-card">
+                  <div class="product-cookie" aria-hidden="true"></div>
+                  <span class="product-badge">Événements</span>
+                  <h3 class="product-name"><button class="product-btn" type="button" aria-haspopup="dialog">Mini kookies</button></h3>
+                  <p class="product-desc">Par 30, 50 ou 100, sur commande.</p>
+                  <p class="product-price">dès <data value="25.00">25,00 €</data></p>
+                </article>
+              </li>
+            </ul>
+            <p class="carte-note">Tout est fait maison, en petites fournées. Allergènes : gluten, lait, œufs, fruits à coque — on te dit tout en boutique.</p>
+          </div>
+
+          <a class="cart-pill" id="cart-pill" href="#panier" hidden>
+            <svg class="ico"><use href="#i-bag"/></svg>
+            <span>Ma réservation</span>
+            <b id="cart-pill-total">0,00 €</b>
+          </a>
+        </section>
+
+        <!-- ================= FIDÉLITÉ ================= -->
+        <section class="view view-fidelite" id="fidelite" data-view="fidelite" aria-labelledby="t-fidelite">
+          <div class="view-scroll">
+            <header class="view-head">
+              <p class="eyebrow">Carte fidélité</p>
+              <h2 id="t-fidelite">10 tampons, <span class="accent">1 Kookie offert.</span></h2>
+            </header>
+
+            <div class="loyalty" id="loyalty">
+              <div class="lcard" id="lcard">
+                <div class="lcard-inner">
+                  <div class="lcard-face lcard-front" id="lcard-front"></div>
+                  <div class="lcard-face lcard-back" id="lcard-back"></div>
+                </div>
+              </div>
+              <p class="lprogress" id="lprogress" aria-live="polite"></p>
+              <div class="lactions" id="lactions"></div>
+            </div>
+
+            <ol class="how">
+              <li><b>1</b><span>Tu crées ta carte en 10 secondes. Pas de carton à perdre.</span></li>
+              <li><b>2</b><span>Un Kookie acheté = un tampon. En boutique, montre ta carte : on la tamponne avec notre code ; en ligne, c’est automatique.</span></li>
+              <li><b>3</b><span>Carte pleine = 1 Kookie offert. On le valide au comptoir, et une carte neuve commence.</span></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ================= NOUS ================= -->
+        <section class="view view-nous" id="nous" data-view="nous" aria-labelledby="t-nous">
+          <div class="view-scroll">
+            <header class="view-head">
+              <p class="eyebrow">Derrière le comptoir</p>
+              <h2 id="t-nous">Une histoire <span class="accent">d’amour.</span></h2>
+            </header>
+
+            <!-- Leurs posts Instagram, en pile : on les fait glisser (gourmandises et preuves en images).
+                 MAQUETTE : captures fournies, légendes provisoires ; à remplacer par les originaux HD.
+                 Prénoms retirés pour l’instant : quand on les aura, les citer dans le texte ci-dessous. -->
+            <section class="insta" id="insta" aria-roledescription="carrousel" aria-label="Kookies sur Instagram">
+              <div class="insta-stack" id="insta-stack">
+                <article class="ig" aria-roledescription="post" aria-label="Post 1 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-duo.webp" width="540" height="675" alt="Les deux créatrices de Kookies en t-shirt blanc Kookies, dans leur boutique de la rue Saint-Esprit à Clermont-Ferrand, sous l’enseigne néon" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> Nous revoilà ! Rentrée 2026 : les fours sont chauds, les Kookies aussi.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 2 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-country.webp" width="540" height="675" alt="Cookie Kookies épais et doré, un bloc de Kinder Country planté dessus, sur sa plaque de cuisson" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> Le Country : un gros bloc de Kinder Country planté dans une pâte bien dorée.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 3 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-bueno.webp" width="540" height="675" alt="Cookie cacao Kookies nappé de crème noisette avec un morceau de Kinder Bueno, tenu dans la main" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> Le Bueno. Pâte cacao, crème noisette, Kinder Bueno. Se tient à deux mains.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 4 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-mie.webp" width="540" height="675" alt="Cookie aux pépites de chocolat cassé en deux sur une assiette rayée : mie moelleuse et chocolat fondant" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> Moelleux dedans, croustillant dehors : la preuve par la mie.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 5 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-pistache.webp" width="540" height="675" alt="Assiette rose de cookies Kookies nappés de pâte de pistache et d’éclats de pistache" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> Pistache : pâte de pistache généreuse, éclats torréfiés, une assiette entière.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 6 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-vitrine.webp" width="540" height="675" alt="Vitrine de la boutique Kookies au 11b rue Saint-Esprit à Clermont-Ferrand, avec le néon turquoise « Nice to eat you ! »" loading="lazy" decoding="async" draggable="false">
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> 11b rue Saint-Esprit. Impossible de nous rater : suivez le néon.</p>
+                  </footer>
+                </article>
+                <article class="ig" aria-roledescription="post" aria-label="Post 7 sur 7">
+                  <header class="ig-head">
+                    <span class="ig-ava" aria-hidden="true"><svg viewBox="0 0 544 560"><use href="#logo"/></svg></span>
+                    <span class="ig-who"><a href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener">kookies_clf</a><small>Clermont-Ferrand</small></span>
+                    <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/></svg>
+                  </header>
+                  <div class="ig-media">
+                    <img src="assets/img/insta/ig-fermeture.webp" width="540" height="675" alt="Vidéo « La musique de la fermeture » : les deux créatrices font le ménage en dansant dans la boutique" loading="lazy" decoding="async" draggable="false">
+                    <svg class="ig-reel" aria-hidden="true"><use href="#i-reel"/></svg>
+                  </div>
+                  <footer class="ig-foot">
+                    <div class="ig-acts">
+                      <button class="ig-like" type="button" aria-pressed="false" aria-label="J’aime"><svg><use href="#i-heart"/></svg></button>
+                      <svg aria-hidden="true"><use href="#i-comment"/></svg><svg aria-hidden="true"><use href="#i-send"/></svg>
+                      <svg class="ig-save" aria-hidden="true"><use href="#i-save"/></svg>
+                    </div>
+                    <p class="ig-cap"><b>kookies_clf</b> La musique de la fermeture. On range, on danse, on recommence demain.</p>
+                  </footer>
+                </article>
+              </div>
+              <div class="insta-nav">
+                <button class="icon-btn insta-prev" type="button" id="ig-prev" aria-label="Post précédent"><svg class="ico"><use href="#i-arrow"/></svg></button>
+                <p class="insta-count mono" aria-live="polite"><span id="ig-n">1</span> / 7</p>
+                <button class="icon-btn" type="button" id="ig-next" aria-label="Post suivant"><svg class="ico"><use href="#i-arrow"/></svg></button>
+              </div>
+            </section>
+
+            <p class="lead">Chaque Kookie passe entre leurs mains&nbsp;: la pâte, les pépites posées une à une, la cuisson surveillée de près. Des recettes gourmandes, des ingrédients de qualité, et un Kookie du mois pour ne jamais s’ennuyer.</p>
+
+            <section class="shop" aria-labelledby="t-shop">
+              <h2 id="t-shop" class="h-sm">La boutique</h2>
+              <div class="shop-grid">
+                <address class="shop-card">
+                  <svg class="ico"><use href="#i-pin"/></svg>
+                  <span><b>Kookies</b><br>11b rue Saint-Esprit<br>63000 Clermont-Ferrand</span>
+                </address>
+              </div>
+              <div class="map" id="map">
+                <iframe title="Plan : Kookies, 11b rue Saint-Esprit, Clermont-Ferrand" loading="lazy"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=3.0822%2C45.7746%2C3.0904%2C45.7775&amp;layer=mapnik&amp;marker=45.77604%2C3.08628"></iframe>
+              </div>
+              <div class="shop-actions">
+                <a class="btn btn-ink" href="https://www.google.com/maps/dir/?api=1&amp;destination=Kookies%2011b%20rue%20Saint-Esprit%2063000%20Clermont-Ferrand" target="_blank" rel="noopener">
+                  <svg class="ico"><use href="#i-pin"/></svg><span>Itinéraire</span></a>
+                <a class="btn btn-line" href="tel:+33473262795"><svg class="ico"><use href="#i-phone"/></svg><span>Appeler</span></a>
+                <a class="btn btn-line" href="https://www.instagram.com/kookies_clf/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-insta"/></svg><span>@kookies_clf</span></a>
+              </div>
+            </section>
+
+            <section class="facts" aria-labelledby="t-facts">
+              <h2 id="t-facts" class="h-sm">Kookies en bref</h2>
+              <dl>
+                <div><dt>Quoi</dt><dd>Cookies faits maison, moelleux dedans, croustillants dehors</dd></div>
+                <div><dt>Où</dt><dd>11b rue Saint-Esprit, Clermont-Ferrand (centre-ville)</dd></div>
+                <div><dt>Quand</dt><dd>Du mardi au samedi, 11h–19h</dd></div>
+                <div><dt>Formats</dt><dd>Kookie du mois, XXL, stick, mini kookies (30, 50, 100)</dd></div>
+                <div><dt>Commander</dt><dd>Réservation en ligne, retrait en boutique. Pas de livraison.</dd></div>
+                <div><dt>Fidélité</dt><dd>10 tampons = 1 Kookie offert</dd></div>
+              </dl>
+            </section>
+
+            <section class="faq" aria-labelledby="t-faq">
+              <h2 id="t-faq" class="h-sm">Questions fréquentes</h2>
+              <details>
+                <summary>Où acheter des cookies faits maison à Clermont-Ferrand&nbsp;?</summary>
+                <p>Chez Kookies, 11b rue Saint-Esprit, 63000 Clermont-Ferrand, en centre-ville. Ouvert du mardi au samedi, de 11h à 19h.</p>
+              </details>
+              <details>
+                <summary>Peut-on réserver ses cookies à l’avance&nbsp;?</summary>
+                <p>Oui&nbsp;: tu choisis tes Kookies ici, un créneau de retrait, tu paies en ligne et tu passes les récupérer. Pas de livraison, pas de frais, pas d’attente.</p>
+              </details>
+              <details>
+                <summary>C’est quoi le Kookie du mois&nbsp;?</summary>
+                <p>Une recette éphémère qui change chaque mois. En septembre 2026, c’est le Marbré&nbsp;: chocolat, vanille, fleur de sel et pépites de chocolat blanc.</p>
+              </details>
+              <details>
+                <summary>Faites-vous des cookies pour les événements&nbsp;?</summary>
+                <p>Oui. Les mini kookies se commandent par 30, 50 ou 100 (anniversaires, mariages, pots d’équipe) et le Kookie XXL se partage à 6 ou 8.</p>
+              </details>
+              <details>
+                <summary>Comment conserver ses Kookies&nbsp;?</summary>
+                <p>Dans une boîte hermétique, à température ambiante, quelques jours. Pour retrouver le moelleux&nbsp;: quelques secondes au micro-ondes. <!-- MAQUETTE : à valider avec elles (story « Conservation ») --></p>
+              </details>
+            </section>
+
+            <footer class="legal">
+              <p>© 2026 Kookies · Clermont-Ferrand</p>
+              <p><a href="#nous">Mentions légales</a> · <a href="#nous">CGV</a> · <a href="#nous">Confidentialité</a></p>
+              <p class="legal-demo">Maquette — prix et paiement fictifs.</p>
+            </footer>
+          </div>
+        </section>
+      </main>
+
+      <nav class="tabbar" id="tabbar" aria-label="Navigation principale">
+        <a class="tab is-active" href="#fournee" data-tab="fournee" data-sfx="tab" data-sfx-i="0" aria-current="page"><svg class="ico"><use href="#i-oven"/></svg><span>Fournée</span></a>
+        <a class="tab" href="#carte" data-tab="carte" data-sfx="tab" data-sfx-i="1"><svg class="ico"><use href="#i-cookie"/></svg><span>Carte</span></a>
+        <a class="tab" href="#fidelite" data-tab="fidelite" data-sfx="tab" data-sfx-i="2"><svg class="ico"><use href="#i-card"/></svg><span>Fidélité</span></a>
+        <a class="tab" href="#nous" data-tab="nous" data-sfx="tab" data-sfx-i="3"><svg class="ico"><use href="#i-duo"/></svg><span>Nous</span></a>
+        <span class="tab-cookie" id="tab-cookie" aria-hidden="true"></span>
+      </nav>
+
+      <!-- ================= FICHE PRODUIT ================= -->
+      <div class="sheet" id="sheet-product" role="dialog" aria-modal="true" aria-labelledby="p-name" hidden>
+        <div class="sheet-backdrop" data-close></div>
+        <div class="sheet-panel">
+          <div class="sheet-grab" aria-hidden="true"><i></i></div>
+          <button class="icon-btn sheet-x" type="button" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+          <div class="p-stage">
+            <button class="p-cookie" id="p-cookie" type="button" data-sfx="none" aria-label="Croquer le Kookie"></button>
+            <p class="p-hint" id="p-hint">Tape pour croquer</p>
+            <span class="p-serial mono" id="p-serial"></span>
+          </div>
+          <div class="sheet-body p-info">
+            <p class="eyebrow" id="p-tag"></p>
+            <h2 class="p-name" id="p-name"></h2>
+            <p class="p-def"><span class="mono" id="p-phon"></span> <i id="p-kind"></i> — <span id="p-def"></span></p>
+            <p class="p-tags" id="p-tags"></p>
+            <div class="p-variants" id="p-variants" role="radiogroup" aria-label="Format" hidden></div>
+          </div>
+          <div class="sheet-foot">
+            <div class="stepper" role="group" aria-label="Quantité">
+              <button type="button" id="p-minus" aria-label="Un de moins" data-sfx="down">−</button>
+              <output id="p-qty">1</output>
+              <button type="button" id="p-plus" aria-label="Un de plus" data-sfx="up">+</button>
+            </div>
+            <button class="btn btn-plum btn-grow" id="p-add" type="button">Ajouter · <span id="p-total">3,50 €</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= PANIER / RÉSERVATION ================= -->
+      <div class="sheet" id="sheet-cart" role="dialog" aria-modal="true" aria-labelledby="c-title" hidden>
+        <div class="sheet-backdrop" data-close></div>
+        <div class="sheet-panel sheet-panel--tall">
+          <div class="sheet-grab" aria-hidden="true"><i></i></div>
+          <header class="sheet-head">
+            <h2 id="c-title">Ma réservation</h2>
+            <button class="icon-btn" type="button" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+          </header>
+          <div class="sheet-body" id="cart-body"></div>
+          <div class="sheet-foot sheet-foot--col" id="cart-foot"></div>
+        </div>
+      </div>
+
+      <!-- ================= CODE ÉQUIPE (tampons & Kookie offert) ================= -->
+      <div class="sheet sheet--pin" id="sheet-pin" role="dialog" aria-modal="true" aria-labelledby="pin-title" hidden>
+        <div class="sheet-backdrop" data-close></div>
+        <div class="sheet-panel">
+          <div class="sheet-grab" aria-hidden="true"><i></i></div>
+          <header class="sheet-head">
+            <h2 id="pin-title">Réservé à l’équipe</h2>
+            <button class="icon-btn" type="button" data-close aria-label="Fermer"><svg class="ico"><use href="#i-close"/></svg></button>
+          </header>
+          <div class="sheet-body pin-body">
+            <p class="pin-hint" id="pin-hint" aria-live="polite">Code équipe</p>
+            <div class="pin-dots" id="pin-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="pin-qty" id="pin-qty" hidden>
+              <div class="stepper" role="group" aria-label="Nombre de Kookies achetés">
+                <button type="button" id="pin-minus" aria-label="Un tampon de moins">−</button>
+                <output id="pin-qty-v" aria-live="polite">1</output>
+                <button type="button" id="pin-plus" aria-label="Un tampon de plus">+</button>
+              </div>
+            </div>
+            <div class="keypad" id="keypad">
+              <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+              <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+              <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+              <span></span><button type="button" data-k="0">0</button><button type="button" data-k="del" aria-label="Effacer"><svg class="ico"><use href="#i-del"/></svg></button>
+            </div>
+            <button class="btn btn-plum pin-go" id="pin-go" type="button" hidden>Tamponner</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js" defer></script>
+  <script src="js/kk-core.js" defer></script>
+  <script src="js/kk-logo.js" defer></script>
+  <script src="js/kk-bake.js" defer></script>
+  <script src="js/kk-hands.js" defer></script>
+  <script src="js/kk-cookie.js" defer></script>
+  <script src="js/kk-3d.js" defer></script>
+  <script src="js/kk-atelier.js" defer></script>
+  <script src="js/kk-shop.js" defer></script>
+  <script src="js/kk-loyalty.js" defer></script>
+  <script src="js/kk-insta.js" defer></script>
+  <script src="js/kk-app.js" defer></script>
+</body>
+</html>

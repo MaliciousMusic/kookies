@@ -1,0 +1,46 @@
+# Kookies — cookies faits maison à Clermont-Ferrand
+# Moteurs de recherche ET assistants IA sont les bienvenus : c'est comme ça
+# qu'on apparaît quand quelqu'un demande « où manger un cookie à Clermont ? ».
+
+User-agent: *
+Allow: /
+
+# Assistants & moteurs IA (explicitement autorisés)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# MAQUETTE : domaine provisoire à remplacer
+Sitemap: https://maliciousmusic.github.io/kookies/sitemap.xml

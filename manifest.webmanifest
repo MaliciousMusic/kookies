@@ -1,0 +1,25 @@
+{
+  "name": "Kookies · Cookies faits maison à Clermont-Ferrand",
+  "short_name": "Kookies",
+  "description": "Le Kookie du mois, la réservation en ligne et la carte fidélité de Kookies, 11b rue Saint-Esprit à Clermont-Ferrand.",
+  "lang": "fr",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./#fournee",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#4A1531",
+  "categories": ["food", "shopping", "lifestyle"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "La carte", "short_name": "Carte", "url": "./#carte" },
+    { "name": "Ma carte fidélité", "short_name": "Fidélité", "url": "./#fidelite" }
+  ]
+}
