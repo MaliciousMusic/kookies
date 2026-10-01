@@ -92,8 +92,8 @@ Limite d'une carte sans serveur : un client très technique pourrait modifier sa
 
 - **Prénoms des deux gérantes** : retirés pour l'instant ; un commentaire dans la section « Nous » indique où les citer.
 - **Posts Instagram** de la pile : des captures fournies (basse définition), recadrées ; légendes provisoires, sans nombre de j'aime inventé. À remplacer par les originaux HD et leurs vraies légendes (`assets/img/insta/`, 1080 × 1350 idéalement). En prod, on peut les tirer de l'API Instagram (compte pro).
-- **Parfums et prix** : le Poire chocolat (Kookie du mois d'octobre), le Marbré (celui de septembre, gardé à la carte), le XXL, le stick, les minis (30 / 50 / 100) et les toppings Pistache, Kinder Country et Kinder Bueno viennent de leur Instagram ou de leurs photos. Le Classique, le Triple Choc et **tous les prix** sont inventés.
-- **Téléphone** (+33 4 73 26 27 95, trouvé dans d'anciennes fiches) : à confirmer. Leur fiche Google Maps (tenue par la boutique) affiche le **09 53 91 74 12**.
+- **Parfums et prix** : le Poire chocolat (Kookie du mois d'octobre), le XXL, le stick, les minis (30 / 50 / 100) et les toppings Pistache, Kinder Country et Kinder Bueno viennent de leur Instagram ou de leurs photos. Le Classique, le Triple Choc et **tous les prix** sont inventés.
+- **Téléphone** : 09 53 91 74 12, celui de leur fiche Google Maps (tenue par la boutique, octobre 2026). Il remplace l'ancien +33 4 73 26 27 95, trouvé dans de vieilles fiches.
 - **Boissons** : liste reconstituée d'après l'ardoise de la boutique (photo Google Maps, août 2021) et les avis clients 2019–2025. À faire valider (ce qui est encore servi aujourd'hui). **Prix provisoires : 4,50 € partout.**
 - **Domaine** : pour l'instant l'adresse GitHub Pages, partout (canonical, og, JSON-LD, robots, sitemap, llms.txt). `node tools/set-domain.mjs https://…` met le vrai domaine d'un coup ; retirer aussi le `noindex`.
 - Allergènes, conseil de conservation (leur story « Conservation »), mentions légales, CGV, confidentialité.
