@@ -600,7 +600,7 @@ sup { font-size: 0.65em; }
 .kk3d-cv.is-grabbing { cursor: grabbing; }
 .kk3d--free .kk3d-cv { touch-action: none; }
 .kk3d-fx { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.view-carte.has-cart .view-scroll { padding-bottom: 88px; }
+.view-carte.has-cart .view-scroll, .view-boissons.has-cart .view-scroll { padding-bottom: 88px; }
 
 .cart-pill {
   position: absolute; left: 14px; right: 14px; bottom: 12px; z-index: 3;
@@ -749,17 +749,34 @@ sup { font-size: 0.65em; }
 .drinks { margin-bottom: 18px; }
 .drinks-h { margin: 0 0 8px 2px; font: 500 10.5px/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--plum-2); }
 .drink-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-radius: 18px; overflow: hidden; }
-.drink { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; align-items: center; padding: 10px 14px 10px 10px; background: var(--paper); }
+.drink { display: grid; grid-template-columns: 34px 1fr 40px; column-gap: 12px; align-items: center; padding: 10px 10px 10px 10px; background: var(--paper); }
 .drink b { grid-column: 2; font: 400 18px/1.15 var(--font-display); }
 .drink span { grid-column: 2; font-size: 13px; line-height: 1.35; color: var(--ink-3); }
+.drink-price { grid-column: 2; margin-top: 3px; font: 500 12.5px var(--font-mono); color: var(--plum-2); }
+/* « + » : la boisson rejoint la réservation */
+.drink-add {
+  grid-column: 3; grid-row: 1 / span 3;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%;
+  background: var(--plum-soft);
+  color: var(--plum);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.drink-add .ico { width: 20px; height: 20px; stroke-width: 2.2; }
+.drink-add:active { transform: scale(0.9); }
+.drink-add.is-added { animation: added 0.5s var(--spring); }
+@keyframes added { 0% { transform: scale(0.8); background: var(--plum); color: var(--cream); } 60% { transform: scale(1.12); } }
 /* la tasse vue de dessus : bord blanc, la boisson, la mousse au centre */
 .sip {
-  grid-row: span 2;
+  grid-row: span 3;
   width: 34px; height: 34px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--f) 0 26%, var(--c) 50% 64%, #fff 67% 100%);
   box-shadow: 0 0 0 1px rgba(23, 17, 15, 0.08), 0 2px 5px -2px rgba(23, 17, 15, 0.3);
 }
+.sip--fill { display: block; width: 100%; height: 100%; }
 .drinks-note { margin: 4px 0 6px; text-align: center; font: 500 11px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 
 /* ---------- Nous ---------- */

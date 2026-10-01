@@ -57,6 +57,46 @@
     });
   }
 
+  /* Les boissons (onglet Boissons) : même panier, pas de cookie à croquer. Leur image : la tasse vue de dessus */
+  function readDrinks() {
+    document.querySelectorAll('#boissons .drink[data-id]').forEach((li) => {
+      const st = $('.sip', li).style;
+      const p = {
+        id: li.dataset.id, kind: 'drink', look: null, cat: ['boisson'],
+        price: parseFloat(li.dataset.price),
+        name: $('b', li).textContent.trim(),
+        desc: $('span', li).textContent.trim(),
+        sip: { c: st.getPropertyValue('--c').trim(), f: st.getPropertyValue('--f').trim() },
+        el: li,
+      };
+      const btn = $('.drink-add', li);
+      btn.setAttribute('aria-label', `Ajouter à ma réservation : ${p.name}, ${KK.fmtPrice(p.price)}`);
+      btn.dataset.sfx = 'none'; // le son, c'est celui du sac quand elle y tombe
+      btn.addEventListener('click', () => addDrink(p, btn));
+      products.set(p.id, p);
+    });
+  }
+
+  function addDrink(p, btn) {
+    cart.add(p.id, null, 1);
+    fly($('.sip', p.el), p);
+    KK.toast(`Ajouté : ${p.name}`);
+    btn.classList.remove('is-added');
+    void btn.offsetWidth;
+    btn.classList.add('is-added');
+  }
+
+  // l'image d'un article : son cookie, ou la tasse d'une boisson
+  function mountThumb(el, p, seed, opts) {
+    if (p.kind !== 'drink') return KK.mountCookie(el, p.look, seed, opts);
+    const cup = document.createElement('i');
+    cup.className = 'sip sip--fill';
+    cup.style.cssText = `--c:${p.sip.c};--f:${p.sip.f}`;
+    el.appendChild(cup);
+    return null;
+  }
+  const cookieLook = (items) => ((items || []).find((i) => i.look) || {}).look || 'classique';
+
   const use3D = () => !!(KK.gl3d && KK.gl3d.ok());
   // la graine d'origine du produit : sa texture est gardée dans le téléphone (pas celles des réassorts)
   const keepOf = (p) => p.seed === KK.hash(p.id + ':kookies');
@@ -108,8 +148,8 @@
       return this.valid().reduce((s, it) => s + priceOf(products.get(it.id), it.v) * it.qty, 0);
     },
     stamps() {
-      // Un tampon par Kookie ; une box de minis compte pour un tampon
-      return this.valid().reduce((n, it) => n + it.qty, 0);
+      // Un tampon par Kookie ; une box de minis compte pour un tampon ; les boissons n'en donnent pas
+      return this.valid().filter((it) => products.get(it.id).kind !== 'drink').reduce((n, it) => n + it.qty, 0);
     },
   };
 
@@ -121,20 +161,20 @@
 
   function renderCartUI() {
     const n = cart.count(), total = cart.total();
-    const badge = $('#cart-badge'), btn = $('#cart-btn'), pill = $('#cart-pill');
+    const badge = $('#cart-badge'), btn = $('#cart-btn');
     // une commande en cours (et rien dans le panier) : le sac laisse place à un Kookie qui tourne
     const order = n ? null : liveOrder(), ck = $('#cart-cookie');
     btn.classList.toggle('has-order', !!order);
     ck.hidden = !order;
-    if (order && !ck.firstChild) KK.mountCookie(ck, (order.items[0] && order.items[0].look) || 'classique', KK.hash(order.code), { fx: false, shadow: false, pad: 2, res: 96, pri: 3 });
+    if (order && !ck.firstChild) KK.mountCookie(ck, cookieLook(order.items), KK.hash(order.code), { fx: false, shadow: false, pad: 2, res: 96, pri: 3 });
     badge.hidden = n === 0 && !order;
     badge.textContent = order ? '1' : n;
     btn.setAttribute('aria-label', order
       ? `Ma commande ${order.code} : retrait ${order.whenShort || order.whenLabel}`
       : n ? `Ma réservation, ${n} article${n > 1 ? 's' : ''}` : 'Ma réservation (vide)');
-    pill.hidden = n === 0;
-    $('#carte').classList.toggle('has-cart', n > 0);
-    $('#cart-pill-total').textContent = KK.fmtPrice(total);
+    document.querySelectorAll('.cart-pill').forEach((pl) => (pl.hidden = n === 0));
+    document.querySelectorAll('.cart-pill-total').forEach((b) => (b.textContent = KK.fmtPrice(total)));
+    ['#carte', '#boissons'].forEach((v) => $(v).classList.toggle('has-cart', n > 0));
   }
 
   function bump() {
@@ -277,7 +317,7 @@
     const el = document.createElement('div');
     el.className = 'flyer';
     app.appendChild(el);
-    KK.mountCookie(el, p.look, p.seed, { shadow: false, fx: false });
+    mountThumb(el, p, p.seed, { shadow: false, fx: false });
     const done = () => {
       el.remove();
       bump();
@@ -366,7 +406,7 @@
         <div class="stepper stepper--sm" role="group" aria-label="Quantité ${p.name}">
           <button type="button" data-d="-1" aria-label="Un de moins">−</button><output>${it.qty}</output><button type="button" data-d="1" aria-label="Un de plus">+</button>
         </div>`;
-      KK.mountCookie($('.mini', li), p.look, KK.hash(p.id + ':kookies'), { shadow: false, fx: false, pad: 6 });
+      mountThumb($('.mini', li), p, KK.hash(p.id + ':kookies'), { shadow: false, fx: false, pad: 6 });
       li.querySelectorAll('[data-d]').forEach((b) =>
         b.addEventListener('click', () => {
           const idx = cart.items.indexOf(it);
@@ -522,10 +562,9 @@
           <div class="ticket-row"><span>Commande</span><span>${order.items.map((i) => `${i.qty} × ${escapeHTML(i.name)}`).join('<br>')}</span></div>
           <div class="ticket-row"><span>Payé</span><span>${KK.fmtPrice(order.total)} · Stripe (démo)</span></div>
         </div>
-        <p>${loyal ? `+${order.stamps} tampon${order.stamps > 1 ? 's' : ''} sur ta carte fidélité.` : `<a href="#fidelite" data-close-go>Crée ta carte fidélité</a> pour cumuler tes tampons.`}</p>
+        ${!order.stamps ? '' : `<p>${loyal ? `+${order.stamps} tampon${order.stamps > 1 ? 's' : ''} sur ta carte fidélité.` : `<a href="#fidelite" data-close-go>Crée ta carte fidélité</a> pour cumuler tes tampons.`}</p>`}
       </div>`;
-    const first = order.items[0];
-    const view = KK.mountCookie($('.success-cookie', body), first ? first.look : 'classique', KK.newSeed(), { fx: false, words: false, keep: false });
+    const view = KK.mountCookie($('.success-cookie', body), cookieLook(order.items), KK.newSeed(), { fx: false, words: false, keep: false });
     if (fresh) view.popIn();
     foot.hidden = false;
     foot.innerHTML = `
@@ -599,6 +638,7 @@
     sheetP.el = $('#sheet-product');
     sheetC.el = $('#sheet-cart');
     readProducts();
+    readDrinks();
 
     $('#grid').addEventListener('click', (e) => {
       const btn = e.target.closest('.product-btn');
@@ -617,6 +657,7 @@
       });
       let i = 0;
       products.forEach((p) => {
+        if (p.kind === 'drink') return;
         const show = f === 'all' || p.cat.includes(f);
         p.el.classList.toggle('is-hidden', !show);
         if (show) {
