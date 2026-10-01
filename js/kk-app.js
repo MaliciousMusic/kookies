@@ -8,10 +8,11 @@
   const KK = window.KK;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const VIEWS = ['fournee', 'carte', 'fidelite', 'nous'];
+  const VIEWS = ['fournee', 'carte', 'boissons', 'fidelite', 'nous'];
   const TITLES = {
     fournee: 'Kookies · Cookies faits maison à Clermont-Ferrand — réservation & retrait en boutique',
     carte: 'La carte · Kookies, cookies faits maison à Clermont-Ferrand',
+    boissons: 'Boissons · Kookies, café, lattes et citronnade à emporter à Clermont-Ferrand',
     fidelite: 'Carte fidélité · Kookies Clermont-Ferrand',
     nous: 'La boutique & l’équipe · Kookies, 11b rue Saint-Esprit, Clermont-Ferrand',
   };
@@ -504,8 +505,8 @@
     initHours();
 
     const P = KK.shop.products;
-    const short = { marbre: 'Marbré', country: 'Country', pistache: 'Pistache', bueno: 'Bueno' };
-    const ids = ['marbre', 'country', 'pistache', 'bueno'].filter((id) => P.has(id));
+    const short = { poire: 'Poire', country: 'Country', pistache: 'Pistache', bueno: 'Bueno' };
+    const ids = ['poire', 'country', 'pistache', 'bueno'].filter((id) => P.has(id)); // le Kookie du mois en tête
     atelier = new KK.Atelier($('#factory'), $('#factory-stage'), {
       serial: 400 + (Math.floor(Date.now() / 86400000) % 500),
       flavors: ids.map((id) => ({ id, key: P.get(id).look, name: P.get(id).name, short: short[id], price: KK.fmtPrice(P.get(id).price) })),
@@ -518,7 +519,7 @@
     KK.atelier = atelier;
     atelier.setActive(false);
 
-    KK.mountCookie($('.drop-cookie'), 'marbre', KK.hash('kookie-du-mois'), { fx: false, pri: 4 });
+    KK.mountCookie($('.drop-cookie'), 'poire', KK.hash('kookie-du-mois'), { fx: false, pri: 4 });
     KK.mountCookie($('#tab-cookie'), 'classique', 7, { fx: false, shadow: false, pad: 2, res: 96, pri: 3 });
     const here = /^https?:$/.test(location.protocol) && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
       ? location.origin + location.pathname

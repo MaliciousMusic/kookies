@@ -38,6 +38,11 @@
       top: [228, 194, 126], mid: [214, 174, 104], edge: [164, 120, 62], crev: [242, 220, 170], peak: [186, 142, 78],
       raw: [240, 212, 158], raw2: [224, 190, 134], crumb: [236, 204, 150], pore: [214, 178, 120],
     },
+    // pâte blonde, entre la dorée et la pâle (le Poire chocolat)
+    blond: {
+      top: [236, 190, 108], mid: [222, 164, 80], edge: [166, 104, 40], crev: [246, 218, 160], peak: [184, 120, 50],
+      raw: [240, 208, 152], raw2: [224, 186, 128], crumb: [234, 198, 140], pore: [212, 170, 110],
+    },
   };
   const SWIRL = { top: [104, 64, 44], edge: [60, 36, 24], raw: [122, 78, 54] };
 
@@ -50,6 +55,7 @@
     pecan: [[122, 58, 26], [170, 100, 54], 0.2, 22, 0.05],
     pistachio: [[128, 158, 58], [96, 124, 42], 0.12, 16, 0.024],
     raspberry: [[196, 52, 84], [238, 120, 148], 0.14, 16, 0.02],
+    pear: [[176, 92, 24], [234, 146, 54], 0.5, 36, 0.032], // dé de poire caramélisée : bord ambré, cœur orangé
     salt: [[252, 252, 248], [232, 232, 226], 1.1, 90, 0.016],
   };
 
@@ -94,6 +100,7 @@
   function prepChunks(model, scale, sizeMul) {
     const list = (model.chunks || []).map((c, i) => {
       const r = KK.rng((model.seed ^ (i * 2654435761)) >>> 0);
+      const dice = c.kind === 'pear'; // dés de poire : carrés aux coins adoucis (voir chunkDist)
       const nv = 7, verts = new Float32Array(nv);
       for (let k = 0; k < nv; k++) verts[k] = r.range(0.74, 1.12);
       const rot = r.range(0, TAU);
@@ -101,6 +108,7 @@
         x: (c.x / 100) * scale, y: (c.y / 100) * scale, s: (c.size / 100) * scale * sizeMul,
         verts, nv, cr: Math.cos(rot), sr: Math.sin(rot), kind: c.kind, M: MAT[c.kind] || MAT.dark, top: !!c.top,
         elong: c.kind === 'pecan' ? 1.85 : r.range(1, 1.3), off: r.range(0, 90),
+        dice, ar: dice ? r.range(0.8, 1.2) : 1,
       };
     });
     (model.sprinkles || []).forEach((s, i) => {
@@ -129,10 +137,50 @@
     return { cells, cs, GN };
   }
 
+  /* Filets de chocolat (capsules) rangés dans une grille : chaque pixel ne teste que ses voisins */
+  function capsGrid(segs, GN, E) {
+    const cells = Array.from({ length: GN * GN }, () => []);
+    const cs = (2 * E) / GN;
+    const list = segs.map(([ax, ay, bx, by, wa, wb]) => ({ ax, ay, dx: bx - ax, dy: by - ay, wa, dw: wb - wa, l2: (bx - ax) ** 2 + (by - ay) ** 2 || 1e-9 }));
+    list.forEach((s, idx) => {
+      const w = Math.max(s.wa, s.wa + s.dw) * 1.15;
+      const x0 = Math.max(0, Math.floor((Math.min(s.ax, s.ax + s.dx) - w + E) / cs)), x1 = Math.min(GN - 1, Math.floor((Math.max(s.ax, s.ax + s.dx) + w + E) / cs));
+      const y0 = Math.max(0, Math.floor((Math.min(s.ay, s.ay + s.dy) - w + E) / cs)), y1 = Math.min(GN - 1, Math.floor((Math.max(s.ay, s.ay + s.dy) + w + E) / cs));
+      for (let gy = y0; gy <= y1; gy++) for (let gx = x0; gx <= x1; gx++) cells[gy * GN + gx].push(idx);
+    });
+    return { cells, cs, GN, list, E };
+  }
+
+  // distance au filet le plus proche, en demi-largeurs (< 1 : dans le chocolat) ; capsW : sa demi-largeur
+  let capsW = 0;
+  function capsDist(G, x, y) {
+    const gx = Math.floor((x + G.E) / G.cs), gy = Math.floor((y + G.E) / G.cs);
+    if (gx < 0 || gy < 0 || gx >= G.GN || gy >= G.GN) return 9;
+    const cell = G.cells[gy * G.GN + gx];
+    let best = 9;
+    for (let c = 0; c < cell.length; c++) {
+      const s = G.list[cell[c]];
+      let t = ((x - s.ax) * s.dx + (y - s.ay) * s.dy) / s.l2;
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+      const w = s.wa + s.dw * t, ex = x - s.ax - s.dx * t, ey = y - s.ay - s.dy * t;
+      const d = Math.sqrt(ex * ex + ey * ey) / w;
+      if (d < best) { best = d; capsW = w; }
+    }
+    return best;
+  }
+
   let chunkAx = 0;
   function chunkDist(k, x, y) {
     const dx = x - k.x, dy = y - k.y;
     const ax = (dx * k.cr + dy * k.sr) / k.elong, ay = -dx * k.sr + dy * k.cr;
+    if (k.dice) {
+      // dé : super-ellipse (carré aux coins ronds)
+      const qx = Math.abs(ax) / k.s, qy = (Math.abs(ay) * k.ar) / k.s;
+      const d = Math.sqrt(Math.sqrt(qx * qx * qx * qx + qy * qy * qy * qy)) / 0.9;
+      if (d > 1.4) return 9;
+      chunkAx = ax / k.s;
+      return d;
+    }
     const dist = Math.sqrt(ax * ax + ay * ay) / k.s;
     if (dist > 1.4) return 9;
     chunkAx = ax / k.s;
@@ -225,6 +273,7 @@
     const G = gridOf(embedded, 12, E), GT = gridOf(topBits, 12, E);
     // en 3D, les toppings solides (bloc Kinder Country, barre Bueno) sont de vrais objets à part
     const tops = ball || mass || interior ? [] : (model.tops || []).filter((t) => !skip.includes(t.type));
+    const drz = tops.find((t) => t.type === 'drizzle'), DG = drz ? capsGrid(drz.lines, 24, E) : null;
     const marble = !!look.marble;
     const rhoT = new Float32Array(1024);
     for (let i = 0; i < 1024; i++) {
@@ -250,7 +299,7 @@
         }
         const edgeN = interior ? 0.3 : ball ? 0.08 : 0.1;
         let vis = 1 - smooth(ball ? 0.9 : 0.8, 1, d + edgeN * nC(x * 12 + k.off, y * 12));
-        if (!interior && !ball && !mass && !k.top) vis *= 1 - 0.7 * smooth(0.42, 0.72, nA(x * 5.5 + k.off, y * 5.5 - k.off));
+        if (!interior && !ball && !mass && !k.top && !k.dice) vis *= 1 - 0.7 * smooth(0.42, 0.72, nA(x * 5.5 + k.off, y * 5.5 - k.off));
         if (vis <= 0) continue;
         const M = k.M;
         const mx = 0.5 + 0.5 * nB(x * 22 + k.off, y * 22);
@@ -261,6 +310,13 @@
           kr = M[0][0] + (M[1][0] - M[0][0]) * c2; kg = M[0][1] + (M[1][1] - M[0][1]) * c2; kb = M[0][2] + (M[1][2] - M[0][2]) * c2;
         }
         let kh = M[4] * Math.sqrt(Math.max(0, 1 - Math.min(1, d) ** 2));
+        if (k.kind === 'pear') {
+          // sirop translucide : plus clair au cœur, fibres fines ; dessus plat, arêtes adoucies
+          const c2 = 1 - Math.min(1, d), fib = 0.5 + 0.5 * nC(chunkAx * 14 + k.off, y * 40);
+          const t = Math.min(1, c2 * 1.6) * (0.82 + 0.18 * fib);
+          kr = M[0][0] + (M[1][0] - M[0][0]) * t; kg = M[0][1] + (M[1][1] - M[0][1]) * t; kb = M[0][2] + (M[1][2] - M[0][2]) * t;
+          kh = M[4] * smooth(0, 0.3, c2);
+        }
         if (k.kind === 'pecan') {
           const groove = Math.sin(chunkAx * 9.5);
           kh += 0.012 * groove;
@@ -501,6 +557,22 @@
               st.r += (kr - st.r) * cov; st.g += (kg - st.g) * cov; st.b += (kb - st.b) * cov;
               st.sp += (ksp - st.sp) * cov;
               st.sh += (ksh - st.sh) * cov;
+              st.dm *= 1 - cov;
+            } else if (tp.type === 'drizzle') {
+              // chocolat noir fondu : rubans bombés et brillants qui épousent le relief,
+              // plus épais au creux des crevasses, où il s'est rassemblé ; bords fins plus bruns
+              const dd = capsDist(DG, x, y);
+              if (dd > 1.08) continue;
+              const cov = 1 - smooth(0.86, 1.06, dd);
+              const prof = Math.sqrt(Math.max(0, 1 - Math.min(1, dd) ** 4)); // dessus plat : le chocolat s'étale
+              const hk = st.h + (0.006 + 0.32 * capsW) * prof * (1 + 0.6 * (crev || 0)) + 0.0012 * nA(x * 30, y * 30);
+              st.h += (hk - st.h) * cov;
+              const v = 0.9 + 0.14 * nB(x * 16 + tp.o, y * 16), thin = smooth(0.55, 1, dd) * 0.35;
+              let kr = 54 * v, kg = 29 * v, kb = 18 * v;
+              kr += (96 - kr) * thin; kg += (56 - kg) * thin; kb += (34 - kb) * thin;
+              st.r += (kr - st.r) * cov; st.g += (kg - st.g) * cov; st.b += (kb - st.b) * cov;
+              st.sp += (0.95 - st.sp) * cov;
+              st.sh += (80 - st.sh) * cov;
               st.dm *= 1 - cov;
             }
           }

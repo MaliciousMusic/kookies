@@ -19,6 +19,7 @@
     golden: { base: '#DB9A40', light: '#EDBB5F', dark: '#A86F17', rim: '#F0CF94', crust: '#7A4A14' },
     cocoa: { base: '#6E4630', light: '#8A5A40', dark: '#4A2A1A', rim: '#9A6A50', crust: '#2E170D' },
     pale: { base: '#D3AE6C', light: '#E6CC98', dark: '#A88040', rim: '#F2DDB0', crust: '#7E5A26' },
+    blond: { base: '#DDB066', light: '#EDCB8C', dark: '#AC7A30', rim: '#F2D8A6', crust: '#7E5420' },
   };
 
   /* Garnitures : tailles relatives + libellés (le rendu est dans kk-bake.js) */
@@ -30,11 +31,14 @@
     pecan: { size: [0.12, 0.16], label: 'noix de pécan' },
     pistachio: { size: [0.04, 0.065], label: 'éclat de pistache' },
     raspberry: { size: [0.06, 0.09], label: 'framboise' },
+    pear: { size: [0.1, 0.15], label: 'poire fondante' },
   };
   KK.CHUNKS = CHUNKS;
 
   /* Recettes visuelles (l'aspect, pas la vraie recette !) — cookies épais, façon boutique */
   KK.LOOKS = {
+    // Kookie d'octobre 2026 (leur Instagram) : poires, pépites de chocolat noir, topping chocolat noir fondu
+    poire: { dough: 'blond', chunky: true, chunks: [['pear', 6], ['dark', 7]], tops: ['drizzle'] },
     marbre: { dough: 'golden', chunky: true, marble: true, chunks: [['white', 6], ['dark', 5]], salt: 10, vanilla: true },
     classique: { dough: 'golden', chunky: true, chunks: [['dark', 9], ['milk', 4]] },
     country: { dough: 'golden', chunky: true, chunks: [['milk', 5], ['white', 2]], tops: ['kcountry'] },
@@ -153,6 +157,43 @@
     return plan;
   }
 
+  /* Chocolat fondu versé à la cuillère : un zigzag continu qui va et vient en travers du cookie
+     (les demi-tours tombent hors du bord), un second plus fin qui le croise, quelques gouttes.
+     Le filet s'épaissit là où la cuillère a ralenti. Segments [ax, ay, bx, by, demi-largeur a, b]
+     en rayons de cookie. */
+  function drizzleLines(r) {
+    const segs = [];
+    const pour = (phi, n, spread, w0, bowK) => {
+      const c = Math.cos(phi), s = Math.sin(phi), ph = r.range(0, TAU);
+      let side = r() < 0.5 ? -1 : 1, off = -spread + r.range(-0.08, 0.08), prev = null;
+      for (let k = 0; k < n; k++) {
+        const next = off + ((2 * spread) / n) * r.range(0.75, 1.3);
+        const bow = r.range(-bowK, bowK); // la passe est un arc de cuillère, pas un trait de règle
+        const pools = [r.range(0.15, 0.85), r() < 0.5 ? r.range(0.15, 0.85) : -1];
+        for (let i = k ? 1 : 0, m = 22; i <= m; i++) {
+          const t = i / m, lx = side * 1.42 * (1 - 2 * t), u = 2 * t - 1;
+          const ly = off + (next - off) * t + bow * (1 - u * u) + 0.045 * Math.sin(t * 4.2 + k * 1.9 + ph);
+          let w = w0 * (0.78 + 0.5 * (0.5 + 0.5 * Math.sin(t * 4.3 + k * 1.3 + ph)));
+          for (const pl of pools) if (pl > 0) w += w0 * 0.9 * Math.exp(-((t - pl) * (t - pl)) / 0.003);
+          const pt = { x: lx * c - ly * s, y: lx * s + ly * c, w };
+          if (prev) segs.push([prev.x, prev.y, pt.x, pt.y, prev.w, pt.w]);
+          prev = pt;
+        }
+        off = next;
+        side = -side;
+      }
+    };
+    const phi = r.range(0, Math.PI);
+    pour(phi, r.int(4, 6), 0.84, r.range(0.038, 0.052), 0.22);
+    pour(phi + r.range(1.1, 1.8), r.int(1, 2), 0.5, r.range(0.018, 0.026), 0.3);
+    for (let i = 0, nd = r.int(4, 8); i < nd; i++) {
+      const a = r.range(0, TAU), d = Math.sqrt(r()) * 0.78, w = r.range(0.026, 0.065);
+      const x = Math.cos(a) * d, y = Math.sin(a) * d;
+      segs.push([x, y, x + r.range(-0.03, 0.03), y + r.range(-0.03, 0.03), w, w * r.range(0.7, 1)]);
+    }
+    return segs;
+  }
+
   /* ---------- Modèle complet ---------- */
   function buildModel(key, seed, opts = {}) {
     const look = KK.LOOKS[key] || KK.LOOKS.classique;
@@ -226,6 +267,7 @@
       // morceau de Bueno : ~2 bosses et demie, un bout arrondi, un bout cassé
       if (type === 'bar') Object.assign(t, { hx: r.range(0.44, 0.5), hy: r.range(0.18, 0.2), tiltB: r.range(-0.05, 0.05), brk: r.range(0, 50) });
       if (type === 'paste') t.r = r.range(0.44, 0.54);
+      if (type === 'drizzle') Object.assign(t, { x: 0, y: 0, lines: drizzleLines(r) });
       const rr = Math.hypot(t.x, t.y);
       t.base = 0.5 * Math.sqrt(Math.max(0, 1 - Math.pow(rr, 3.2))) + 0.1;
       return t;

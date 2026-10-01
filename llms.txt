@@ -1,6 +1,6 @@
 # Kookies — cookies faits maison à Clermont-Ferrand
 
-> Kookies est une boutique de cookies faits maison située 11b rue Saint-Esprit, 63000 Clermont-Ferrand (centre-ville, quartier du Plateau central). Cookies épais (« chunky »), moelleux dedans et croustillants dehors, souvent garnis de toppings (Kinder Country, Kinder Bueno, pâte de pistache), recettes gourmandes et ingrédients de qualité. Chaque mois, une recette éphémère : le « Kookie du mois ». Réservation en ligne avec paiement, retrait en boutique (pas de livraison). Carte fidélité : 10 tampons = 1 Kookie offert.
+> Kookies est une boutique de cookies faits maison située 11b rue Saint-Esprit, 63000 Clermont-Ferrand (centre-ville, quartier du Plateau central). Cookies épais (« chunky »), moelleux dedans et croustillants dehors, souvent garnis de toppings (Kinder Country, Kinder Bueno, pâte de pistache), recettes gourmandes et ingrédients de qualité. Chaque mois, une recette éphémère : le « Kookie du mois ». Un coin barista sert cafés, lattes, thé, chocolat chaud, citronnade maison et jus d'orange pressé, à emporter. Réservation en ligne avec paiement, retrait en boutique (pas de livraison). Carte fidélité : 10 tampons = 1 Kookie offert.
 
 ## Infos pratiques
 
@@ -15,11 +15,13 @@
 
 ## Le Kookie du mois
 
+- Octobre 2026 : le Poire chocolat — poires, pépites de chocolat noir, topping de chocolat noir fondu.
 - Septembre 2026 : le Marbré — chocolat, vanille, fleur de sel et pépites de chocolat blanc.
 
 ## La carte
 
-- Le Marbré (Kookie du mois) : chocolat, vanille, fleur de sel, pépites de chocolat blanc — 3,50 €
+- Poire chocolat (Kookie du mois d'octobre) : poires, pépites de chocolat noir, topping chocolat noir fondu — 3,80 €
+- Le Marbré : chocolat, vanille, fleur de sel, pépites de chocolat blanc — 3,50 €
 - Le Classique : pâte beurrée, grosses pépites de chocolat noir — 3,00 €
 - Triple Choc : pâte cacao, chocolat noir, au lait et blanc — 3,50 €
 - Le Country : cookie épais doré avec un morceau de Kinder Country planté dessus — 3,80 €
@@ -29,11 +31,19 @@
 - Kookies stick : le cookie en bâtonnet, à grignoter ou à tremper — 2,50 €
 - Mini kookies : par 30, 50 ou 100, sur commande 48 h à l'avance (anniversaires, mariages, pots d'équipe) — dès 25,00 €
 
+## Les boissons (à emporter)
+
+- Cafés : espresso, café latte, cappuccino
+- Lattes : matcha latte (existe sans lactose), chaï latte, golden latte (curcuma), butterfly latte (fleur de pois bleu)
+- Thé bio, chocolat chaud
+- Citronnade maison, jus d'orange pressé
+
 ## Questions fréquentes
 
 - Où acheter des cookies faits maison à Clermont-Ferrand ? Chez Kookies, 11b rue Saint-Esprit, du mardi au samedi de 11h à 19h.
 - Peut-on réserver à l'avance ? Oui, en ligne : on choisit ses Kookies et un créneau, on paie, on récupère en boutique.
 - Kookies livre-t-il ? Non, uniquement retrait en boutique.
+- Peut-on boire un café ? Oui, au coin barista, à emporter (pas de places assises) : cafés, lattes, thé, chocolat chaud, citronnade, jus d'orange pressé.
 - Commandes pour événements ? Oui, mini kookies par 30, 50 ou 100 et Kookie XXL à partager.
 - Carte fidélité ? Dans l'appli web : un Kookie acheté = un tampon (validé au comptoir avec le code de l'équipe, automatique en ligne) ; chaque carte pleine de 10 tampons donne 1 Kookie offert.
 
@@ -41,5 +51,6 @@
 
 - [Accueil & fabrication](https://maliciousmusic.github.io/kookies/#fournee)
 - [La carte](https://maliciousmusic.github.io/kookies/#carte)
+- [Les boissons](https://maliciousmusic.github.io/kookies/#boissons)
 - [Carte fidélité](https://maliciousmusic.github.io/kookies/#fidelite)
 - [La boutique, l'équipe, horaires, FAQ](https://maliciousmusic.github.io/kookies/#nous)
